@@ -1,0 +1,401 @@
+# This is a namespace agnostic configuration file for the Franka FR3 robot.
+# That is to say, it is not tied to any specific namespace and can be used in
+# any namespace. 
+# If you require namespace specific configurations, you can easily modify this
+# file to include the namespace
+# As an example, below you can find:
+#
+# /**:
+#   franka_robot_state_broadcaster:
+#     ros__parameters:
+#       lock_try_count: 5
+#       lock_sleep_interval: 5
+#
+# Imagine, you have a specific need to have the lock try count in namespace "NAMESPACE_X"
+# to be different than the default value of 5, but leave all the other namespaces as default.
+# Add the following lines to the configuration file 
+# (or use a different config file, but then you have to mody the launch script to reference that file)
+#
+# /NAMESPACE_X:
+#   franka_robot_state_broadcaster:
+#     ros__parameters:
+#       lock_try_count: 10
+#       lock_sleep_interval: 35
+# /**:
+#   franka_robot_state_broadcaster:
+#     ros__parameters:
+#       lock_try_count: 5
+#       lock_sleep_interval: 5
+
+
+/**:
+  controller_manager:
+    ros__parameters:
+      update_rate: 1000
+      thread_priority: 98
+
+      cartesian_elbow_example_controller:
+        type: franka_example_controllers/CartesianElbowExampleController
+
+      cartesian_orientation_example_controller:
+        type: franka_example_controllers/CartesianOrientationExampleController
+
+      cartesian_pose_elbow_example_controller:
+        type: franka_example_controllers/CartesianElbowExampleController
+
+      cartesian_pose_example_controller:
+        type: franka_example_controllers/CartesianPoseExampleController
+
+      cartesian_velocity_example_controller:
+        type: franka_example_controllers/CartesianVelocityExampleController
+
+      elbow_example_controller:
+        type: franka_example_controllers/ElbowExampleController
+
+      franka_robot_state_broadcaster:
+        type: franka_robot_state_broadcaster/FrankaRobotStateBroadcaster
+        state_interfaces:
+          robot_state
+
+      gravity_compensation_example_controller:
+        type: franka_example_controllers/GravityCompensationExampleController
+
+      gripper_example_controller:
+        type: franka_example_controllers/GripperExampleController
+
+      joint_impedance_example_controller:
+        type: franka_example_controllers/JointImpedanceExampleController
+
+      joint_impedance_with_ik_example_controller:
+        type: franka_example_controllers/JointImpedanceWithIKExampleController
+
+      joint_position_example_controller:
+        type: franka_example_controllers/JointPositionExampleController
+
+      joint_state_broadcaster:
+        type: joint_state_broadcaster/JointStateBroadcaster
+
+      joint_velocity_example_controller:
+        type: franka_example_controllers/JointVelocityExampleController
+
+      model_example_controller:
+        type: franka_example_controllers/ModelExampleController
+
+      move_to_start_example_controller:
+        type: franka_example_controllers/MoveToStartExampleController
+
+      move_to_start_with_gripper:
+        type: franka_example_controllers/MoveToStartWithGripper     
+
+      move_catersian_impedance_with_gripper:
+        type: franka_example_controllers/MoveCatersianImpWithGripper        
+
+
+/**:
+  cartesian_elbow_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+
+/**:
+  cartesian_orientation_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+
+/**:
+  cartesian_pose_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+
+/**:
+  cartesian_velocity_example_controller:
+    ros__parameters:
+      arm_id: "fr3"   
+
+/**:
+  elbow_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+      joints:
+        - fr3_joint1
+        - fr3_joint2
+        - fr3_joint3
+        - fr3_joint4
+        - fr3_joint5
+        - fr3_joint6
+        - fr3_joint7
+
+/**:
+  franka_robot_state_broadcaster:
+    ros__parameters:
+      lock_try_count: 5 # Number of attempts to acquire the lock in a single on_update()
+      lock_sleep_interval: 5 # microseconds sleep between attempts
+      lock_log_error: true #  Log error if lock acquisition fails - false == do not log  
+      lock_update_success: false # return update OK, although lock fails (no update occurs)
+
+/**:
+  gravity_compensation_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+      
+/**:
+  joint_impedance_example_controller:
+    ros__parameters:
+      arm_id: "fr3"    
+      k_gains:
+        - 24.0
+        - 24.0
+        - 24.0
+        - 24.0
+        - 10.0
+        - 6.0
+        - 2.0
+      d_gains:
+        - 2.0
+        - 2.0
+        - 2.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 0.5
+
+/**:
+  joint_impedance_with_ik_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+      k_gains:
+        - 600.0
+        - 600.0
+        - 600.0
+        - 600.0
+        - 250.0
+        - 150.0
+        - 50.0
+      d_gains:
+        - 30.0
+        - 30.0
+        - 30.0
+        - 30.0
+        - 10.0
+        - 10.0
+        - 5.0
+
+/**:
+  joint_position_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+
+/**:
+  joint_velocity_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+
+/**:
+  joint_state_broadcaster:
+    ros__parameters:
+      arm_id: "fr3"
+      joints:
+        - fr3_joint1
+        - fr3_joint2
+        - fr3_joint3
+        - fr3_joint4
+        - fr3_joint5
+        - fr3_joint6
+        - fr3_joint7
+
+/**:
+  joint_velocity_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+ 
+/**:
+  model_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+
+/**:
+  move_to_start_example_controller:
+    ros__parameters:
+      k_gains:
+        - 600.0
+        - 600.0
+        - 600.0
+        - 600.0
+        - 250.0
+        - 150.0
+        - 50.0
+      d_gains:
+        - 30.0
+        - 30.0
+        - 30.0
+        - 30.0
+        - 10.0
+        - 10.0
+        - 5.0
+
+/**:
+  move_to_start_with_gripper:
+    ros__parameters:
+      k_gains:
+        - 600.0
+        - 600.0
+        - 600.0
+        - 600.0
+        - 250.0
+        - 150.0
+        - 50.0
+        # - 20.0
+      d_gains:
+        - 30.0
+        - 30.0
+        - 30.0
+        - 30.0
+        - 10.0
+        - 10.0
+        - 5.0 
+        # - 1.0 
+
+      joint_names:
+        - fr3_joint1
+        - fr3_joint2
+        - fr3_joint3
+        - fr3_joint4
+        - fr3_joint5
+        - fr3_joint6
+        - fr3_joint7
+        # - fr3_finger_joint1   # <-- gripper joint
+
+      # NOTE: 第8个值是 gripper 的目标（[0,0.04]按你模型单位/方向自行调整）### not that the in the read test, it can not be used
+      # q_goal: [0.5, -0.785398, 0.2, -2.356194, -0.5, 1.570796, 0.785398, 0.02]
+      q_goal: [0.0, -0.785398, 0.0, -2.356194, -0.0, 1.570796, 0.785398]
+
+      move_duration: 5.0
+      finish_tolerance: 0.01
+      hold_position: true
+
+      treat_identity_orientation_as_unset: false
+      use_pinocchio_ik: true
+      robot_description_topic: "robot_description"
+      use_robot_hand: false
+      ee_frame_override: "fr3_hand_tcp"
+
+      target_position: [0.5, -0.0, 0.4]
+      target_orientation_xyzw:  [1.0, 0.0, 0.0, 0.0]
+
+      ik.max_iters: 150
+      ik.eps: 1e-4
+      ik.step_size: 0.2
+      ik.damping: 5e-2
+      ik.clamp_to_limits: false
+      ik.w_rot: 0.2              
+
+/**:
+  move_catersian_impedance_with_gripper:
+    ros__parameters:
+      joint_names:
+        - fr3_joint1
+        - fr3_joint2
+        - fr3_joint3
+        - fr3_joint4
+        - fr3_joint5
+        - fr3_joint6
+        - fr3_joint7
+        # - fr3_finger_joint1   # <-- gripper joint
+      
+      warmup_seconds: 2.0
+      Catersian_imp: true ## Catersian impedance or joint pd?
+      osc_blend_alpha_gain: 0.8 ### from 0~1, 1 means use osc only
+
+      test_compensation: false
+
+      k_gains: [600.0, 600.0, 600.0, 600.0, 250.0, 150.0, 50.0]
+      d_gains: [30.0, 30.0, 30.0, 30.0, 10.0, 10.0, 5.0]
+      # NOTE: 第8个值是 gripper 的目标（[0~0.04]按你模型单位/方向自行调整） ### not that the in the read test, it can not be used
+      # q_goal: [0.5, -0.785398, 0.2, -2.356194, -0.5, 1.570796, 0.785398, 0.02]
+      q_goal: [0.0, -0.785398, 0.0, -2.356194, -0.0, 1.570796, 0.785398]
+
+      
+    
+      move_duration: 6.0
+      finish_tolerance: 0.001
+      hold_position: true
+
+      treat_identity_orientation_as_unset: false
+      use_pinocchio_ik: true
+      robot_description_topic: "robot_description"
+      use_robot_hand: false
+      ee_frame_override: "fr3_hand_tcp"
+
+      target_position: [0.44, 0.0, 0.01] ## for grasping the gear [0.44, 0.0, 0.01]; for genearalization position 2 [0.464, -0.137, 0.01]
+      target_orientation_xyzw:  [1.0, 0.0, 0.0, 0.0]   ### initial orientation:  [1.0, 0.0, 0.0, 0.0] ;  for generalization: rotate 90 degree again along z axis [0.7071, 0.7071, 0.0, 0.0]
+
+      # ### for ft sensor test
+      # ## 1
+      # target_position: [0.4, 0.2, 0.4]
+      # target_orientation_xyzw:  [1.0, 0.0, 0.0, 0.0] 
+
+      # ### 2: 90 degrees around x 
+      # target_position: [0.4, 0.1, 0.4]
+      # target_orientation_xyzw:  [0.7071, 0.0, 0.0, 0.7071] 
+
+      # ### 3: -90 degrees around x 
+      # target_position: [0.4, 0.1, 0.4]
+      # target_orientation_xyzw:  [-0.7071, 0.0, 0.0, 0.7071] 
+      
+      # ### 4: 90 degrees around y, 90 degree around z 
+      # target_position: [0.5, 0.0, 0.4]
+      # target_orientation_xyzw:  [0.5, 0.5, 0.5, 0.5] 
+      
+      # # # ### 5: -90 degrees around y, 
+      # target_position: [0.5, 0.2, 0.2]
+      # target_orientation_xyzw:  [0.0, 0.7071, 0.0, 0.7071] 
+
+      # # ### 6: 225 degrees around x
+      # target_position: [0.3, 0.2, 0.3]
+      # target_orientation_xyzw:  [0.9239, 0.0, 0.0, -0.3827] 
+
+
+      ik.max_iters: 150
+      ik.eps: 1e-4
+      ik.step_size: 0.2
+      ik.damping: 5e-2
+      ik.clamp_to_limits: false
+      ik.w_rot: 0.2
+      
+      ### move to gripper ###
+      q_goal_grasp: [0.00] ### gripper angle
+      move_duration_grasp: 5.0
+
+      ### interpolation between target_position and target_position_plugin
+      move_duration_2: 5.0
+      target_position_plugin: [0.3452, 0.2232, 0.063] ### fixed_pos_action_frame + [0.0, 0.0, 0.035];###  for generalizatin position 2:  fixed_pos_action_frame + [0.0, 0.0, 0.035];
+      target_orientation_xyzw_plugin: [1.0, 0.0, 0.0, 0.0]    ### initial orientation:  [1.0, 0.0, 0.0, 0.0] ;  for generalization: rotate 90 degree again along z axis [0.7071, 0.7071, 0.0, 0.0]
+      
+
+
+      ### RL grasping policy===== 
+      policy_name: "policy.onnx" ###ppo.onnx: ppo_eal;  policy_ppo_no_constraint_2999.onnx: ppo only (not working)
+                    ### retrain the ppo policy with defined target area: for generalization position 2-- large: [0.417, -0.004, 0.028]: not good                                                      
+
+      #### target collect mode, send zero torque 
+      RL_target_collect: False ### True, only gravity compensation, we can drag the gripper to the target position, False: run the RL policy
+
+      RL_test: False ### True: test rl policy without sending the command to osc ###
+      RL_duration: 20.0
+      fixed_pos_action_frame: [0.3452, 0.2232, 0.028] ### bold tip position: fixed_pos_action_frame: ## large: [0.3942, 0.2232, 0.028]; middle: [0.3452, 0.2232, 0.028]
+                                                     ## for generalization position 2: large: [0.417, -0.004, 0.028]; middle gear [0.3666, -0.004, 0.028](close to risk area) 
+     
+      ft_sensor_data: false ### if the ft data is read directly from an external ft sensor
+
+
+      ### 
+      gripper.grasp.width: 0.030 ###0.030, middle ## 0.035, large
+      gripper.grasp.speed: 0.03
+      gripper.grasp.force: 20.0
+      gripper.grasp.epsilon_inner: 0.005
+      gripper.grasp.epsilon_outer: 0.005
+      gripper.grasp.action_name: /NS_1/franka_gripper/grasp
+
+      ### 
+      gripper.move.width: 0.04
+      gripper.move.speed: 0.03
+      gripper.move.action_name: /NS_1/franka_gripper/move

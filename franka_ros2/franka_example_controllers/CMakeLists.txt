@@ -43,7 +43,7 @@ find_package(realtime_tools REQUIRED)
 # -------------------------------
 # ONNX Runtime C++ (prebuilt, CPU)
 # -------------------------------
-set(ORT_ROOT "/home/jiataoding/libs/onnxruntime-linux-x64-1.21.0" CACHE PATH "ONNX Runtime root dir")
+set(ORT_ROOT "/home/peskr/libs/onnxruntime-linux-x64-1.21.0" CACHE PATH "ONNX Runtime root dir")
 
 if(NOT EXISTS "${ORT_ROOT}/include/onnxruntime_cxx_api.h")
   message(FATAL_ERROR "ONNX Runtime not found: ${ORT_ROOT}/include/onnxruntime_cxx_api.h")

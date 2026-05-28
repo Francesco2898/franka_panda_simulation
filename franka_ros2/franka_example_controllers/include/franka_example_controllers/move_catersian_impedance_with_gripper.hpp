@@ -62,6 +62,15 @@ public:
 private:
   // ---- state read ----
   bool read_state();
+  void buildPickPlaceObservation(double phase_mask);
+
+  void applyPickPlacePolicyAction(
+      const std::array<float, 9>& action,
+      double dt_policy);
+
+  Eigen::Vector3d computeOrientationErrorIsaacLabStyle(
+      const Eigen::Quaterniond& q_target,
+      const Eigen::Quaterniond& q_hand) const;
 
   // ---- helpers (IK/FK/OSC) ----
   std::string resolve_ee_frame_name() const;
@@ -238,9 +247,71 @@ private:
   std::unique_ptr<franka_example_controllers::OnnxPolicy> policy_;
   std::string policy_name_;
 
-  std::array<float, 28> rl_obs_{};
-  std::array<float, 6>  rl_prev_action_{};
+  std::array<float, 46> rl_obs_{};
+  std::array<float, 9>  rl_prev_action_{};
   bool rl_test_{true};  
+  Vector7d q_policy_target_{Vector7d::Zero()};
+
+  std::array<double, 9> robot_dof_lower_limit_{{
+    -2.8973, -1.7628, -2.8973, -3.0718, -2.8973, -0.0175, -2.8973,
+    0.0, 0.0
+  }};
+
+  std::array<double, 9> robot_dof_upper_limit_{{
+    2.8973, 1.7628, 2.8973, -0.0698, 2.8973, 3.7525, 2.8973,
+    0.04, 0.04
+  }};
+
+  std::array<double, 9> robot_dof_speed_scales_{{
+    1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+    1.0, 1.0
+  }};
+  double finger_open_pos_{0.04};
+  double finger_closed_pos_{0.0};
+
+  double action_scale_{1.0};
+  double dof_velocity_scale_{0.1};
+  double r_in_{0.025};
+
+  double object_init_z_{0.0};
+  double success_height_{0.005};
+  double object_z_estimate_{0.0};
+
+  // Probe frames for clear_obs[20]
+  std::array<std::string, 4> probe_frame_names_{{
+    "fr3_link2",
+    "fr3_link4",
+    "fr3_link6",
+    "fr3_hand"
+  }};
+  
+  std::array<pinocchio::FrameIndex, 4> probe_frame_ids_{{
+    pinocchio::FrameIndex(-1),
+    pinocchio::FrameIndex(-1),
+    pinocchio::FrameIndex(-1),
+    pinocchio::FrameIndex(-1)
+  }};
+  
+  bool probe_frame_ids_ready_{false};
+  
+  std::array<Eigen::Vector3d, 20> probe_points_w_{};
+  
+  // Obstacle cylinder parameters, equivalent to IsaacLab cfg
+  Eigen::Vector3d obstacle_pos_w_{0.5, 0.0, 0.2};
+  double obstacle_radius_{0.05};
+  double obstacle_height_{0.20};
+  double link_radius_{0.05};
+  
+  void initProbeFrameIds();
+  void updateClearObsFromPinocchio();
+  double computeCylinderClearance(
+    const Eigen::Vector3d& p,
+    const Eigen::Vector3d& obstacle_pos,
+    double obstacle_radius,
+    double obstacle_height,
+    double link_radius) const;
+
+  std::array<float, 20> clear_obs_{};
 
   Eigen::Vector3d target_p_gear_fixed_{0.5, 0.0, 0.0};  
   Eigen::Matrix<double, 7, 1> fingertip_midpoint_p_quaterion{Eigen::Matrix<double, 7, 1>::Zero()};
@@ -360,7 +431,7 @@ private:
   Vector7d q_interp_start_{Vector7d::Zero()};
 
   /// rt print
-  std::array<float, 6> action_rl_bg_{};
+  std::array<float, 9> action_rl_bg_{};
   bool action_rl_bg_valid_{false};
 
   Eigen::Vector3d rl_ctrl_target_fingertip_midpoint_pos_bg_ = Eigen::Vector3d::Zero();

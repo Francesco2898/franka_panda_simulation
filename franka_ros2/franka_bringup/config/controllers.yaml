@@ -302,7 +302,7 @@
         # - fr3_finger_joint1   # <-- gripper joint
       
       warmup_seconds: 2.0
-      Catersian_imp: true ## Catersian impedance or joint pd?
+      Catersian_imp: false ## Catersian impedance or joint pd?
       osc_blend_alpha_gain: 0.8 ### from 0~1, 1 means use osc only
 
       test_compensation: false
@@ -328,6 +328,9 @@
       target_position: [0.44, 0.0, 0.01] ## for grasping the gear [0.44, 0.0, 0.01]; for genearalization position 2 [0.464, -0.137, 0.01]
       target_orientation_xyzw:  [1.0, 0.0, 0.0, 0.0]   ### initial orientation:  [1.0, 0.0, 0.0, 0.0] ;  for generalization: rotate 90 degree again along z axis [0.7071, 0.7071, 0.0, 0.0]
 
+      # Place target = place_pos_w
+      target_position_plugin: [0.3452, 0.2232, 0.063]
+      target_orientation_xyzw_plugin: [0.0, 0.0, 0.0, 1.0]
       # ### for ft sensor test
       # ## 1
       # target_position: [0.4, 0.2, 0.4]
@@ -372,9 +375,50 @@
       
 
 
-      ### RL grasping policy===== 
-      policy_name: "policy.onnx" ###ppo.onnx: ppo_eal;  policy_ppo_no_constraint_2999.onnx: ppo only (not working)
-                    ### retrain the ppo policy with defined target area: for generalization position 2-- large: [0.417, -0.004, 0.028]: not good                                                      
+      ### RL grasping policy=====
+      policy_name: "pick_place_policy.onnx" ###ppo.onnx: ppo_eal;  policy_ppo_no_constraint_2999.onnx: ppo only (not working)
+                    ### retrain the ppo policy with defined target area: for generalization position 2-- large: [0.417, -0.004, 0.028]: not good
+
+      pick_place.action_scale: 0.7
+      pick_place.dof_velocity_scale: 0.1
+      pick_place.r_in: 0.025
+      pick_place.finger_open_pos: 0.04
+      pick_place.finger_closed_pos: 0.0
+      pick_place.object_init_z: 0.0
+      pick_place.success_height: 0.005
+
+      pick_place.robot_dof_lower_limit:
+        - -2.8973
+        - -1.7628
+        - -2.8973
+        - -3.0718
+        - -2.8973
+        - -0.0175
+        - -2.8973
+        - 0.0
+        - 0.0
+
+      pick_place.robot_dof_upper_limit:
+        - 2.8973
+        - 1.7628
+        - 2.8973
+        - -0.0698
+        - 2.8973
+        - 3.7525
+        - 2.8973
+        - 0.04
+        - 0.04
+
+      pick_place.robot_dof_speed_scales:
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0                                                   
 
       #### target collect mode, send zero torque 
       RL_target_collect: False ### True, only gravity compensation, we can drag the gripper to the target position, False: run the RL policy

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "franka_msgs__py",
+		"source" : "/home/jiataoding/franco_ros2_franka_ws/src/build/franka_msgs/franka_msgs__py"
+	}
+}

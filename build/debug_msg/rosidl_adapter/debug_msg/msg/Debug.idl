@@ -1,0 +1,24 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from debug_msg/msg/Debug.msg
+// generated code does not contain a copyright notice
+
+
+module debug_msg {
+  module msg {
+    typedef double double__7[7];
+    typedef double double__6[6];
+    struct Debug {
+      double__7 commanded_torque;
+
+      double__7 stiffness_torque;
+
+      double__7 damping_torque;
+
+      double__7 coriolis_torque;
+
+      double__7 nullspace_torque;
+
+      double__6 impedance_force;
+    };
+  };
+};

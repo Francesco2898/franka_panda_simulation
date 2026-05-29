@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/build/franka_msgs/rosidl_generator_cpp/franka_msgs/msg/detail/collision_indicators__type_support.hpp

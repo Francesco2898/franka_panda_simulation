@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-47bfff932246e48d46d5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "cartesian_impedance_controller",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "cartesian_impedance_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cartesian_impedance_controller-Release-7d25bef499a6dfbb02c5.json",
+					"name" : "cartesian_impedance_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cartesian_impedance_controller_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cartesian_impedance_controller_uninstall-Release-ef84057853acde84ac66.json",
+					"name" : "cartesian_impedance_controller_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-ba332b0eb0547edb015f.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/jiataoding/franco_ros2_franka_ws/src/build/cartesian_impedance_controller",
+		"source" : "/home/jiataoding/franco_ros2_franka_ws/src/ros2_effort_controller/cartesian_impedance_controller"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

@@ -1,0 +1,192 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+-- Using PYTHON_EXECUTABLE: /usr/bin/python3
+-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+-- Found PythonExtra: .so  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/jiataoding/franco_ros2_franka_ws/src/build/debug_msg
+[  3%] [34m[1mGenerating C code for ROS interfaces[0m
+[  6%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[  6%] Built target ament_cmake_python_symlink_debug_msg
+[  9%] [32mBuilding C object CMakeFiles/debug_msg__rosidl_generator_c.dir/rosidl_generator_c/debug_msg/msg/detail/debug__functions.c.o[0m
+[  9%] Built target debug_msg__cpp
+[ 12%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[ 16%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[ 19%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+running egg_info
+creating debug_msg.egg-info
+writing debug_msg.egg-info/PKG-INFO
+writing dependency_links to debug_msg.egg-info/dependency_links.txt
+writing top-level names to debug_msg.egg-info/top_level.txt
+writing manifest file 'debug_msg.egg-info/SOURCES.txt'
+reading manifest file 'debug_msg.egg-info/SOURCES.txt'
+writing manifest file 'debug_msg.egg-info/SOURCES.txt'
+[ 19%] Built target ament_cmake_python_build_debug_msg_egg
+[ 22%] [32m[1mLinking C shared library libdebug_msg__rosidl_generator_c.so[0m
+[ 22%] Built target debug_msg__rosidl_generator_c
+[ 25%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[ 29%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[ 32%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[ 35%] [32mBuilding CXX object CMakeFiles/debug_msg__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/debug_msg/msg/debug__type_support.cpp.o[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/debug_msg__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/debug_msg/msg/detail/debug__type_support.cpp.o[0m
+[ 41%] [32mBuilding CXX object CMakeFiles/debug_msg__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/debug_msg/msg/detail/dds_fastrtps/debug__type_support.cpp.o[0m
+[ 45%] [32mBuilding CXX object CMakeFiles/debug_msg__rosidl_typesupport_c.dir/rosidl_typesupport_c/debug_msg/msg/debug__type_support.cpp.o[0m
+[ 48%] [32m[1mLinking CXX shared library libdebug_msg__rosidl_typesupport_c.so[0m
+[ 51%] [32m[1mLinking CXX shared library libdebug_msg__rosidl_typesupport_cpp.so[0m
+[ 54%] [32mBuilding CXX object CMakeFiles/debug_msg__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/debug_msg/msg/detail/debug__type_support_c.cpp.o[0m
+[ 58%] [32mBuilding C object CMakeFiles/debug_msg__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/debug_msg/msg/detail/debug__type_support.c.o[0m
+[ 58%] Built target debug_msg__rosidl_typesupport_c
+[ 58%] Built target debug_msg__rosidl_typesupport_cpp
+[ 61%] [32m[1mLinking C shared library libdebug_msg__rosidl_typesupport_introspection_c.so[0m
+[ 61%] Built target debug_msg__rosidl_typesupport_introspection_c
+[ 64%] [32m[1mLinking CXX shared library libdebug_msg__rosidl_typesupport_introspection_cpp.so[0m
+[ 67%] [32m[1mLinking CXX shared library libdebug_msg__rosidl_typesupport_fastrtps_cpp.so[0m
+[ 67%] Built target debug_msg__rosidl_typesupport_introspection_cpp
+[ 67%] Built target debug_msg__rosidl_typesupport_fastrtps_cpp
+[ 70%] [32m[1mLinking CXX shared library libdebug_msg__rosidl_typesupport_fastrtps_c.so[0m
+[ 70%] Built target debug_msg__rosidl_typesupport_fastrtps_c
+[ 70%] Built target debug_msg
+[ 74%] [34m[1mGenerating Python code for ROS interfaces[0m
+[ 74%] Built target debug_msg__py
+[ 77%] [32mBuilding C object CMakeFiles/debug_msg__rosidl_generator_py.dir/rosidl_generator_py/debug_msg/msg/_debug_s.c.o[0m
+[ 80%] [32m[1mLinking C shared library rosidl_generator_py/debug_msg/libdebug_msg__rosidl_generator_py.so[0m
+[ 80%] Built target debug_msg__rosidl_generator_py
+[ 83%] [32mBuilding C object CMakeFiles/debug_msg__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/debug_msg/_debug_msg_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[ 87%] [32mBuilding C object CMakeFiles/debug_msg__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/debug_msg/_debug_msg_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[ 90%] [32mBuilding C object CMakeFiles/debug_msg__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/debug_msg/_debug_msg_s.ep.rosidl_typesupport_c.c.o[0m
+[ 93%] [32m[1mLinking C shared library rosidl_generator_py/debug_msg/debug_msg_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so[0m
+[ 96%] [32m[1mLinking C shared library rosidl_generator_py/debug_msg/debug_msg_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so[0m
+[100%] [32m[1mLinking C shared library rosidl_generator_py/debug_msg/debug_msg_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so[0m
+[100%] Built target debug_msg__rosidl_typesupport_c__pyext
+[100%] Built target debug_msg__rosidl_typesupport_introspection_c__pyext
+[100%] Built target debug_msg__rosidl_typesupport_fastrtps_c__pyext
+-- Install configuration: "Release"
+-- Execute custom install script
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/ament_index/resource_index/rosidl_interfaces/debug_msg
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/debug.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__functions.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__struct.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__type_support.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/rosidl_generator_c__visibility_control.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/environment/library_path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/environment/library_path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/debug.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__builder.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__struct.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__traits.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__type_support.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/include/debug_msg/debug_msg/msg/detail/debug__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/environment/pythonpath.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/environment/pythonpath.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg-1.5.0-py3.10.egg-info/PKG-INFO
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg-1.5.0-py3.10.egg-info/SOURCES.txt
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg-1.5.0-py3.10.egg-info/dependency_links.txt
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg-1.5.0-py3.10.egg-info/top_level.txt
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/__init__.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/_debug_msg_s.ep.rosidl_typesupport_c.c
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/_debug_msg_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/_debug_msg_s.ep.rosidl_typesupport_introspection_c.c
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/debug_msg_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/debug_msg_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/debug_msg_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/libdebug_msg__rosidl_generator_py.so
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/msg/__init__.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/msg/_debug.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/msg/_debug_s.c
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/debug_msg_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/debug_msg_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/debug_msg_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/msg/Debug.idl
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/msg/Debug.msg
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/ament_index/resource_index/package_run_dependencies/debug_msg
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/ament_index/resource_index/parent_prefix_path/debug_msg
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/environment/ament_prefix_path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/environment/ament_prefix_path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/environment/path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/environment/path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/local_setup.bash
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/local_setup.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/local_setup.zsh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/local_setup.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/package.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/ament_index/resource_index/packages/debug_msg
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/rosidl_cmake-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/ament_cmake_export_libraries-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/ament_cmake_export_targets-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msgConfig.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msgConfig-version.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/package.xml
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_generator_c.so
+-- Set runtime path of "/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_generator_c.so" to ""
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_fastrtps_c.so
+-- Set runtime path of "/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_fastrtps_c.so" to ""
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_introspection_c.so
+-- Set runtime path of "/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_c.so
+-- Set runtime path of "/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_c.so" to ""
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_fastrtps_cpp.so
+-- Set runtime path of "/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_fastrtps_cpp.so" to ""
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_introspection_cpp.so
+-- Set runtime path of "/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_introspection_cpp.so" to ""
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_cpp.so
+-- Set runtime path of "/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_typesupport_cpp.so" to ""
+Listing '/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg'...
+Compiling '/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/__init__.py'...
+Listing '/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/msg'...
+Compiling '/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/msg/__init__.py'...
+Compiling '/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/local/lib/python3.10/dist-packages/debug_msg/msg/_debug.py'...
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_generator_py.so
+-- Set runtime path of "/home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/lib/libdebug_msg__rosidl_generator_py.so" to ""
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/export_debug_msg__rosidl_generator_cExport.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/export_debug_msg__rosidl_generator_cExport-release.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/export_debug_msg__rosidl_typesupport_fastrtps_cExport.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/export_debug_msg__rosidl_typesupport_fastrtps_cExport-release.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msg__rosidl_typesupport_introspection_cExport.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msg__rosidl_typesupport_introspection_cExport-release.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msg__rosidl_typesupport_cExport.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msg__rosidl_typesupport_cExport-release.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/export_debug_msg__rosidl_generator_cppExport.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/export_debug_msg__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/export_debug_msg__rosidl_typesupport_fastrtps_cppExport-release.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msg__rosidl_typesupport_introspection_cppExport.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msg__rosidl_typesupport_introspection_cppExport-release.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msg__rosidl_typesupport_cppExport.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/debug_msg__rosidl_typesupport_cppExport-release.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/export_debug_msg__rosidl_generator_pyExport.cmake
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/debug_msg/share/debug_msg/cmake/export_debug_msg__rosidl_generator_pyExport-release.cmake

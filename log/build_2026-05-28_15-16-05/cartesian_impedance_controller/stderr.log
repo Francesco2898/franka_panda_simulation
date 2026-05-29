@@ -1,0 +1,4 @@
+[33mCMake Warning at CMakeLists.txt:32 (message):
+  MatLogger2 not found: Logging disabled
+
+[0m

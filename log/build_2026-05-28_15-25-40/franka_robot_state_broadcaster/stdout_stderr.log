@@ -1,0 +1,38 @@
+[35m[1mConsolidate compiler generated dependencies of target gmock_main[0m
+[35m[1mConsolidate compiler generated dependencies of target gmock[0m
+[ 15%] Built target franka_robot_state_broadcaster_parameters
+[ 38%] Built target gmock
+[ 53%] Built target gmock_main
+[35m[1mConsolidate compiler generated dependencies of target franka_robot_state_broadcaster[0m
+[ 69%] Built target franka_robot_state_broadcaster
+[35m[1mConsolidate compiler generated dependencies of target franka_robot_state_broadcaster_test[0m
+[35m[1mConsolidate compiler generated dependencies of target test_load_franka_robot_state_broadcaster[0m
+[ 84%] Built target franka_robot_state_broadcaster_test
+[100%] Built target test_load_franka_robot_state_broadcaster
+-- Install configuration: "Release"
+-- Execute custom install script
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/include/franka_robot_state_broadcaster/franka_robot_state_broadcaster_parameters.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster//franka_robot_state_broadcaster.xml
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/lib/libfranka_robot_state_broadcaster.so
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/include/franka_robot_state_broadcaster/franka_robot_state_broadcaster.hpp
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/environment/library_path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/environment/library_path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/ament_index/resource_index/package_run_dependencies/franka_robot_state_broadcaster
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/ament_index/resource_index/parent_prefix_path/franka_robot_state_broadcaster
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/environment/ament_prefix_path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/environment/ament_prefix_path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/environment/path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/environment/path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/local_setup.bash
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/local_setup.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/local_setup.zsh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/local_setup.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/package.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/ament_index/resource_index/packages/franka_robot_state_broadcaster
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/ament_index/resource_index/controller_interface__pluginlib__plugin/franka_robot_state_broadcaster
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/cmake/ament_cmake_export_libraries-extras.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/cmake/franka_robot_state_broadcasterConfig.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/cmake/franka_robot_state_broadcasterConfig-version.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_robot_state_broadcaster/share/franka_robot_state_broadcaster/package.xml

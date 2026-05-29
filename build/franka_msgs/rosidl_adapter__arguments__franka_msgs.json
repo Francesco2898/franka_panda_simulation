@@ -1,0 +1,21 @@
+{
+  "package_name": "franka_msgs",
+  "non_idl_tuples": [
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:action/ErrorRecovery.action",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:action/Grasp.action",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:action/Homing.action",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:action/Move.action",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:msg/CollisionIndicators.msg",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:msg/Elbow.msg",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:msg/Errors.msg",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:msg/GraspEpsilon.msg",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:msg/FrankaRobotState.msg",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:srv/SetCartesianStiffness.srv",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:srv/SetTCPFrame.srv",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:srv/SetForceTorqueCollisionBehavior.srv",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:srv/SetFullCollisionBehavior.srv",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:srv/SetJointStiffness.srv",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:srv/SetStiffnessFrame.srv",
+    "/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_msgs:srv/SetLoad.srv"
+  ]
+}

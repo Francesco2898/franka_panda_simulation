@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/build/franka_fr3_moveit_config/ament_cmake_environment_hooks/local_setup.bash

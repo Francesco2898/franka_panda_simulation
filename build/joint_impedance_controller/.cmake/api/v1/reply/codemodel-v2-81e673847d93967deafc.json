@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-ca2e4eaa7d20b6c07a98.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "joint_impedance_controller",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "joint_impedance_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-joint_impedance_controller-Release-0b9d89502ddd3415ef16.json",
+					"name" : "joint_impedance_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "joint_impedance_controller_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-joint_impedance_controller_uninstall-Release-7a756052d2778ae924fa.json",
+					"name" : "joint_impedance_controller_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-3cefb25d091ce26fb3ba.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/jiataoding/franco_ros2_franka_ws/src/build/joint_impedance_controller",
+		"source" : "/home/jiataoding/franco_ros2_franka_ws/src/ros2_effort_controller/joint_impedance_controller"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

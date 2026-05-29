@@ -84,6 +84,11 @@ public:
 
   void fk_rt(const Vector7d& q_arm, pinocchio::SE3& out);
 
+  // Added by francesco
+  pinocchio::FrameIndex frameIdByName(const std::string& name) const;
+  bool FramePoseRt(const Vector7d& q_arm, pinocchio::FrameIndex frame_id, pinocchio::SE3& out);
+  bool FramePoses4Rt(const Vector7d& q_arm, const std::array<pinocchio::FrameIndex, 4>& frame_ids, std::array<pinocchio::SE3, 4>& out);
+
 private:
   std::string resolveEeFrameName(const Options& opt) const;
   bool resolveFrameIds();

@@ -129,6 +129,37 @@ controller_interface::CallbackReturn MoveCatersianImpWithGripper::on_init()
   declare_if_needed("gripper.move.speed", 0.03);
   declare_if_needed("gripper.move.action_name", std::string("/franka_gripper/move"));
 
+  declare_if_needed("pick_place.action_scale", 0.01);
+  declare_if_needed("pick_place.dof_velocity_scale", 0.1);
+  declare_if_needed("pick_place.r_in", 0.02);
+
+  declare_if_needed("pick_place.finger_open_pos", 0.04);
+  declare_if_needed("pick_place.finger_closed_pos", 0.0);
+
+  declare_if_needed("pick_place.object_init_z", 0.0);
+  declare_if_needed("pick_place.success_height", 0.10);
+
+  declare_if_needed(
+    "pick_place.robot_dof_lower_limit",
+    std::vector<double>{
+      -2.8973, -1.7628, -2.8973, -3.0718, -2.8973, -0.0175, -2.8973,
+       0.0, 0.0
+    });
+
+  declare_if_needed(
+    "pick_place.robot_dof_upper_limit",
+    std::vector<double>{
+       2.8973, 1.7628, 2.8973, -0.0698, 2.8973, 3.7525, 2.8973,
+       0.04, 0.04
+    });
+
+  declare_if_needed(
+    "pick_place.robot_dof_speed_scales",
+    std::vector<double>{
+      1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+      1.0, 1.0
+    });
+
 
   return controller_interface::CallbackReturn::SUCCESS;
 }
@@ -262,6 +293,47 @@ MoveCatersianImpWithGripper::on_configure(const rclcpp_lifecycle::State& /*previ
   std::vector<double> k_gains_vec, d_gains_vec;
   node->get_parameter("k_gains", k_gains_vec);
   node->get_parameter("d_gains", d_gains_vec);
+
+  //====================================================================================================================================================
+  // Added by francesco
+  node->get_parameter("pick_place.action_scale", action_scale_);
+  node->get_parameter("pick_place.dof_velocity_scale", dof_velocity_scale_);
+  node->get_parameter("pick_place.r_in", r_in_);
+
+  node->get_parameter("pick_place.finger_open_pos", finger_open_pos_);
+  node->get_parameter("pick_place.finger_closed_pos", finger_closed_pos_);
+
+  node->get_parameter("pick_place.object_init_z", object_init_z_);
+  node->get_parameter("pick_place.success_height", success_height_);
+
+  std::vector<double> lower_vec;
+  std::vector<double> upper_vec;
+  std::vector<double> speed_vec;
+
+  node->get_parameter("pick_place.robot_dof_lower_limit", lower_vec);
+  node->get_parameter("pick_place.robot_dof_upper_limit", upper_vec);
+  node->get_parameter("pick_place.robot_dof_speed_scales", speed_vec);
+
+  if (lower_vec.size() != 9 ||
+      upper_vec.size() != 9 ||
+      speed_vec.size() != 9)
+  {
+    RCLCPP_ERROR(
+        node->get_logger(),
+        "pick_place.robot_dof_lower_limit, upper_limit and speed_scales must have size %d.",
+        9);
+    return controller_interface::CallbackReturn::ERROR;
+  }
+
+  for (int i = 0; i < 9; ++i)
+  {
+    robot_dof_lower_limit_[i] = lower_vec[i];
+    robot_dof_upper_limit_[i] = upper_vec[i];
+    robot_dof_speed_scales_[i] = speed_vec[i];
+  }
+
+  clear_obs_.fill(0.0f);
+  //====================================================================================================================================================
 
   auto fill_gains = [node](const std::vector<double>& src, Vector7d& dst, const char* name) {
     if (src.size() == 7) {
@@ -735,7 +807,26 @@ MoveCatersianImpWithGripper::on_configure(const rclcpp_lifecycle::State& /*previ
               rl_ctrl_target_fingertip_midpoint_quat_bg_.x(),
               rl_ctrl_target_fingertip_midpoint_quat_bg_.y(),
               rl_ctrl_target_fingertip_midpoint_quat_bg_.z(),
-              rl_ctrl_target_fingertip_midpoint_quat_bg_.w());  
+              rl_ctrl_target_fingertip_midpoint_quat_bg_.w()); 
+              
+          //===========================================================================================================================================
+          RCLCPP_INFO(
+            get_node()->get_logger(),
+            "====DEBUG JOINT ANGLES ======\n"
+            "q_               = [%.4f, %.4f, %.4f, %.4f, %.4f, %.4f, %.4f]\n"
+            "q_des            = [%.4f, %.4f, %.4f, %.4f, %.4f, %.4f, %.4f]\n"
+            "err_             = [%.4f, %.4f, %.4f, %.4f, %.4f, %.4f, %.4f]\n"
+            "fingertip_pos    = [%.4f, %.4f, %.4f]\n"
+            "fingertip_pos_des= [%.4f, %.4f, %.4f]\n"
+            "fingertip_err    = [%.4f, %.4f, %.4f]",
+            q_(0), q_(1), q_(2), q_(3), q_(4), q_(5), q_(6),
+            q_des_(0), q_des_(1), q_des_(2), q_des_(3), q_des_(4), q_des_(5), q_des_(6),
+            q_(0) - q_des_(0), q_(1) - q_des_(1), q_(2) - q_des_(2), q_(3) - q_des_(3), q_(4) - q_des_(4), q_(5) - q_des_(5), q_(6) - q_des_(6),
+            fingertip_pos.x(), fingertip_pos.y(), fingertip_pos.z(),
+            fingertip_pos_fk_dbg_.x(), fingertip_pos_fk_dbg_.y(), fingertip_pos_fk_dbg_.z(),
+            fingertip_pos.x()-fingertip_pos_fk_dbg_.x(), fingertip_pos.y()-fingertip_pos_fk_dbg_.y(), fingertip_pos.z()-fingertip_pos_fk_dbg_.z()
+          );
+          //==========================================================================================================================================
         }
 
         // RCLCPP_INFO(
@@ -956,6 +1047,9 @@ MoveCatersianImpWithGripper::on_activate(const rclcpp_lifecycle::State& /*previo
 
   // If Cartesian impedance enabled, init Pinocchio (FK) + OSC model (non-RT)
   const bool ok_fk = init_pinocchio_if_needed_with_wait();
+  //==================================================================================================================================================
+  if (ok_fk) {initProbeFrameIds();}
+  //==================================================================================================================================================
   const bool ok_osc = init_cartesian_osc_if_needed_with_wait();
   if (!ok_fk || !ok_osc) {
     RCLCPP_WARN(get_node()->get_logger(),
@@ -1711,9 +1805,22 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
           std::cout<<"osc_initialized_:"<<osc_initialized_<<std::endl;
           std::cout<<"catersian_imp_:"<<catersian_imp_<<std::endl;
           std::cout<<"osc_blend_alpha_gain_:"<<osc_blend_alpha_gain_<<std::endl;
+
+          //============================================================================================================================================
+          q_policy_target_ = q_;
+
+          // Resetting policy timer
+          rl_timer_ = 0.0;
+          // Resetting observations
+          rl_obs_.fill(0.0f);
+          rl_prev_action_.fill(0.0f);
+          action_rl_bg_.fill(0.0f);
+          action_rl_bg_valid_ = false;
+          //============================================================================================================================================
         }
 
         elapsed_time_ += dt;
+        rl_timer_ +=dt;
         // Only in MOVE_POSE_1: generate q_des_ by linear interpolation
         // if (!move_1_finished_) 
         // {
@@ -1727,24 +1834,210 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
         //   }
         // }
 
-        auto quintic = [](double tau) -> double {
-          tau = std::clamp(tau, 0.0, 1.0);
-          const double tau2 = tau * tau;
-          const double tau3 = tau2 * tau;
-          const double tau4 = tau3 * tau;
-          const double tau5 = tau4 * tau;
-          return 10.0 * tau3 - 15.0 * tau4 + 6.0 * tau5;
-        };
+        // auto quintic = [](double tau) -> double {
+        //   tau = std::clamp(tau, 0.0, 1.0);
+        //   const double tau2 = tau * tau;
+        //   const double tau3 = tau2 * tau;
+        //   const double tau4 = tau3 * tau;
+        //   const double tau5 = tau4 * tau;
+        //   return 10.0 * tau3 - 15.0 * tau4 + 6.0 * tau5;
+        // };
 
         if (!move_1_finished_)
         {
           // const double lift_duration = move_duration_ * 0.5;
           // const double move_duration_remain = move_duration_ * 0.5;
+          //============================================================================================================================================
+          constexpr float phase_mask = 0.0f;
+          
+          // ids[0:6] = normalized arm joint position 
+          // ids[9:15] = normalized arm joint velocities
+          for (int i=0; i<7; i++){
+            const double lower = robot_dof_lower_limit_[i];
+            const double upper = robot_dof_upper_limit_[i];
+            const double denom = std::max(1e-9, upper - lower);
 
-          const double s_total = quintic(
-              std::clamp(elapsed_time_ / std::max(1e-6, move_duration_), 0.0, 1.0));
+            double q_norm = 2.0 * (q_(i) - lower)/denom - 1.0;
+            if(!std::isfinite(q_norm)){q_norm = 0.0;}
 
-          Eigen::Vector3d pos_ref = move1_start_pos_;
+            double dq_norm = dq_(i) * dof_velocity_scale_;
+            if(!std::isfinite(dq_norm)){dq_norm = 0.0;}
+
+            rl_obs_[i] = static_cast<float>(std::clamp(q_norm, -5.0, 5.0));
+            rl_obs_[9 + i] = static_cast<float>(std::clamp(dq_norm, -5.0, 5.0));
+          }
+
+          // hardcoded finger position and velocity -> open with vel = 0
+          const double finger_pos[2] = {finger_open_pos_, finger_open_pos_};
+          const double finger_vel[2] = {0.0, 0.0};
+
+          for (int i=0; i<2; i++) {
+            const int idx = 7 + i;
+
+            const double lower = robot_dof_lower_limit_[idx];
+            const double upper = robot_dof_upper_limit_[idx];
+            const double denom = std::max(1e-9, upper - lower);
+
+            double q_norm = 2.0 * (finger_pos[i] - lower)/denom - 1.0;
+            if(!std::isfinite(q_norm)){q_norm = 0.0;}
+
+            double dq_norm = finger_vel[i] * dof_velocity_scale_;
+            if(!std::isfinite(dq_norm)){dq_norm = 0.0;}
+
+            rl_obs_[idx] = static_cast<float>(std::clamp(q_norm, -5.0, 5.0));
+            rl_obs_[9 + idx] = static_cast<float>(std::clamp(dq_norm, -5.0, 5.0));
+          }
+
+          // reaching phase flag = 0
+          rl_obs_[18] = phase_mask;
+
+          // 3D error vector to the target
+          const Eigen::Vector3d to_target = target_p_ - fingertip_pos;
+          rl_obs_[19] = static_cast<float>(to_target.x());
+          rl_obs_[20] = static_cast<float>(to_target.y());
+          rl_obs_[21] = static_cast<float>(to_target.z());
+
+          // orientation error
+          Eigen::Quaterniond q_hand(
+            fingertip_quat[0],
+            fingertip_quat[1],
+            fingertip_quat[2],
+            fingertip_quat[3]
+          );
+          q_hand.normalize();
+
+          Eigen::Quaterniond q_target(
+            target_q_xyzw_[3],
+            target_q_xyzw_[0],
+            target_q_xyzw_[1],
+            target_q_xyzw_[2]
+          );
+          q_target.normalize();
+          const double quat_dot = std::abs(
+            move1_target_quat_.w() * fingertip_quat[0] +
+            move1_target_quat_.x() * fingertip_quat[1] +
+            move1_target_quat_.y() * fingertip_quat[2] +
+            move1_target_quat_.z() * fingertip_quat[3]);
+          const double rot_err = 2.0 * std::acos(std::clamp(quat_dot, 0.0, 1.0));
+            
+
+          Eigen::Quaterniond q_rel = q_target * q_hand.conjugate();
+          q_rel.normalize();
+
+          if (q_rel.w() < 0.0) {q_rel.coeffs() *= -1.0;}
+
+          const Eigen::Vector3d qv(q_rel.x(), q_rel.y(), q_rel.z());
+          const double qw = std::max(1e-8, q_rel.w());
+          const double nv = qv.norm();
+
+          Eigen::Vector3d ori_err = Eigen::Vector3d::Zero();
+
+          if (nv > 1e-6) {
+            const double angle = 2.0 * std::atan2(nv, qw);
+            ori_err = angle * qv / nv;
+          }
+          else {
+            ori_err = 2.0 * qv;
+          }
+          ori_err /= M_PI;
+          
+          rl_obs_[22] = static_cast<float>(std::clamp(ori_err.x(), -1.0, 1.0));
+          rl_obs_[23] = static_cast<float>(std::clamp(ori_err.y(), -1.0, 1.0));
+          rl_obs_[24] = static_cast<float>(std::clamp(ori_err.z(), -1.0, 1.0));
+
+          // lift_height == 0, before the grasp
+          rl_obs_[25] = 0.0f;
+
+          if (policy_ && rl_timer_ >= rl_dt_) {
+            const double policy_dt = rl_timer_;
+            rl_timer_ = 0.0;
+            // obs[26:46] = clear_obs
+            //
+            // In the simulations there where the probe points, recreated in this section with added pinocchio functions
+            // ------------------------------------------------------------
+            updateClearObsFromPinocchio();
+
+            for (int i = 0; i < 20; ++i)
+            {
+              float v = clear_obs_[i];
+            
+              if (!std::isfinite(v)) {
+                v = 0.0f;
+              }
+            
+              rl_obs_[26 + i] = std::clamp(v, -5.0f, 5.0f);
+            }
+          
+            // Protezione finale equivalente a torch.nan_to_num + clamp.
+            for (float& v : rl_obs_)
+            {
+              if (!std::isfinite(v)) {
+                v = 0.0f;
+              }
+            
+              v = std::clamp(v, -5.0f, 5.0f);
+            }
+            auto action = policy_->infer(rl_obs_);
+            action_rl_bg_ = action;
+            action_rl_bg_valid_ = true;
+            rl_prev_action_ = action;
+
+            // IsaacLab:
+            // targets_arm =
+            //   robot_dof_targets[:, :-2]
+            //   + robot_dof_speed_scales[:-2] * dt * arm_actions * action_scale
+            for (int i = 0; i < 7; i++){
+              double a = static_cast<double>(action[i]);
+              if (!std::isfinite(a)) {a = 0.0;}
+              a = std::clamp(a, -1.0, 1.0);
+              q_policy_target_(i) += robot_dof_speed_scales_[i] * policy_dt * a * action_scale_;
+              q_policy_target_(i) = std::clamp(q_policy_target_(i), robot_dof_lower_limit_[i], robot_dof_upper_limit_[i]);
+              // the action for the gripper is ignored becouse it will be closed with GRASP phase
+            }
+          }
+
+          q_des_.head<7>() = q_policy_target_;
+          q_goal_.head<7>() = q_des_.head<7>();
+
+          // Se stai usando solo joint PD, questa parte non è critica.
+          if (kin_initialized_)
+          {
+            const pinocchio::SE3 ee_ref_policy = pino_.fk(q_des_.head<7>());
+            ee6_ref_ = se3ToXyzRpy(ee_ref_policy);
+          }
+          else {
+            ee6_ref_.setZero();
+          }
+
+          const double dist_pick = (target_p_ - fingertip_pos).norm();
+
+          if (N_torque_ % 1000 == 0)
+          {
+            std::cout << "[MOVE_POSE_1 PICK POLICY]" << std::endl;
+            std::cout << "q: " << q_.transpose() << std::endl;
+            std::cout << "q_des: " << q_des_.transpose() << std::endl;
+            std::cout << "target_p_: " << target_p_.transpose() << std::endl;
+            std::cout << "fingertip_pos: " << fingertip_pos.transpose() << std::endl;
+            std::cout << "to_target: " << to_target.transpose() << std::endl;
+            std::cout << "dist_pick: " << dist_pick << std::endl;
+          }
+
+          if ((elapsed_time_ >= move_duration_) || ((dist_pick < r_in_) && (rot_err < 0.05) && (elapsed_time_ >= 1.0 * move_duration_))) {
+            
+            move_1_finished_ = true;
+
+            q_goal_.head<7>() = q_des_.head<7>();
+
+            std::cout << "!!! move_1_finished: pick policy stopped before grasp !!!" << std::endl;
+            std::cout << "dist_pick = " << dist_pick << std::endl;
+            std::cout << "q_goal_ = " << q_goal_.transpose() << std::endl;
+          }
+          //==========================================================================================================================================
+
+          // const double s_total = quintic(
+          //     std::clamp(elapsed_time_ / std::max(1e-6, move_duration_), 0.0, 1.0));
+
+          // Eigen::Vector3d pos_ref = move1_start_pos_;
 
           // if (elapsed_time_ <= lift_duration)
           // {
@@ -1759,77 +2052,77 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
           // }
 
           // segment 1: first 2s, move upward
-          if (elapsed_time_ <= lift_duration)
-          {
-            const double s1 = quintic(elapsed_time_ / std::max(1e-6, lift_duration));
-            pos_ref = move1_start_pos_ + s1 * (move1_lift_pos_ - move1_start_pos_);
-          }
-          // segment 2: next 2s, move to target xy while keeping 5cm above target z
-          else if (elapsed_time_ <= lift_duration + hover_move_duration)
-          {
-            const double t2 = elapsed_time_ - lift_duration;
-            const double s2 = quintic(t2 / std::max(1e-6, hover_move_duration));
-            pos_ref = move1_lift_pos_ + s2 * (move1_hover_pos_ - move1_lift_pos_);
-          }
-          // segment 3: remaining time, move downward to target pose
-          else
-          {
-            const double t3 = elapsed_time_ - lift_duration - hover_move_duration;
-            const double s3 = quintic(t3 / std::max(1e-6, descend_duration));
-            pos_ref = move1_hover_pos_ + s3 * (target_p_ - move1_hover_pos_);
-          }
+          // if (elapsed_time_ <= lift_duration)
+          // {
+          //   const double s1 = quintic(elapsed_time_ / std::max(1e-6, lift_duration));
+          //   pos_ref = move1_start_pos_ + s1 * (move1_lift_pos_ - move1_start_pos_);
+          // }
+          // // segment 2: next 2s, move to target xy while keeping 5cm above target z
+          // else if (elapsed_time_ <= lift_duration + hover_move_duration)
+          // {
+          //   const double t2 = elapsed_time_ - lift_duration;
+          //   const double s2 = quintic(t2 / std::max(1e-6, hover_move_duration));
+          //   pos_ref = move1_lift_pos_ + s2 * (move1_hover_pos_ - move1_lift_pos_);
+          // }
+          // // segment 3: remaining time, move downward to target pose
+          // else
+          // {
+          //   const double t3 = elapsed_time_ - lift_duration - hover_move_duration;
+          //   const double s3 = quintic(t3 / std::max(1e-6, descend_duration));
+          //   pos_ref = move1_hover_pos_ + s3 * (target_p_ - move1_hover_pos_);
+          // }
 
 
 
 
-          Eigen::Quaterniond quat_ref =
-              move1_start_quat_.slerp(s_total, move1_target_quat_);
-          quat_ref.normalize();
+          // Eigen::Quaterniond quat_ref =
+          //     move1_start_quat_.slerp(s_total, move1_target_quat_);
+          // quat_ref.normalize();
 
-          pinocchio::SE3 ee_ref_move1(quat_ref.toRotationMatrix(), pos_ref);
+          // pinocchio::SE3 ee_ref_move1(quat_ref.toRotationMatrix(), pos_ref);
 
-          ee6_ref_ = poseToXyzRpy(pos_ref, quat_ref);
+          // ee6_ref_ = poseToXyzRpy(pos_ref, quat_ref);
 
-          if (kin_initialized_)
-          {
-            Vector7d q_seed = q_des_.head<7>();
-            if (elapsed_time_ <= 2.0 * dt) {
-              q_seed = q_.head<7>();
-            }
+          // if (kin_initialized_)
+          // {
+          //   Vector7d q_seed = q_des_.head<7>();
+          //   if (elapsed_time_ <= 2.0 * dt) {
+          //     q_seed = q_.head<7>();
+          //   }
 
-            Vector7d q_sol = q_seed;
-            double final_err = -1.0;
-            bool ok = pino_.ik(ee_ref_move1, q_seed, q_sol, ik_opt_, &final_err);
+          //   Vector7d q_sol = q_seed;
+          //   double final_err = -1.0;
+          //   bool ok = pino_.ik(ee_ref_move1, q_seed, q_sol, ik_opt_, &final_err);
 
-            if (ok) {
-              q_des_.head<7>() = q_sol;
-            }
-          }
+          //   if (ok) {
+          //     q_des_.head<7>() = q_sol;
+          //   }
+          // }
 
-          const double quat_dot = std::abs(
-              move1_target_quat_.w() * fingertip_quat[0] +
-              move1_target_quat_.x() * fingertip_quat[1] +
-              move1_target_quat_.y() * fingertip_quat[2] +
-              move1_target_quat_.z() * fingertip_quat[3]);
-          const double rot_err = 2.0 * std::acos(std::clamp(quat_dot, 0.0, 1.0));
+          // const double quat_dot = std::abs(
+          //     move1_target_quat_.w() * fingertip_quat[0] +
+          //     move1_target_quat_.x() * fingertip_quat[1] +
+          //     move1_target_quat_.y() * fingertip_quat[2] +
+          //     move1_target_quat_.z() * fingertip_quat[3]);
+          // const double rot_err = 2.0 * std::acos(std::clamp(quat_dot, 0.0, 1.0));
 
-          if(N_torque_%1000==0)
-          {
-            std::cout<<"q_des_:"<<q_des_.transpose() << std::endl;
-            std::cout<<"q_goal_:"<<q_goal_.transpose() << std::endl;
-            std::cout<<"pos_ref: :"<<pos_ref.transpose() << std::endl;
-            std::cout<<"target_p_: :"<<target_p_.transpose() << std::endl;
-          }
+          // if(N_torque_%1000==0)
+          // {
+          //   std::cout<<"q_des_:"<<q_des_.transpose() << std::endl;
+          //   std::cout<<"q_goal_:"<<q_goal_.transpose() << std::endl;
+          //   std::cout<<"pos_ref: :"<<pos_ref.transpose() << std::endl;
+          //   std::cout<<"target_p_: :"<<target_p_.transpose() << std::endl;
+          // }
 
-          if ((elapsed_time_ >= move_duration_) ||
-              (((fingertip_pos - target_p_).norm() < finish_tolerance_) &&
-              (rot_err < 0.05) &&
-              (elapsed_time_ >= 1.0 * move_duration_)))
-          {
-            move_1_finished_ = true;
-            q_goal_.head<7>() = q_des_.head<7>();   // 建议补这一句
-            std::cout << "!!! move_1_finished !!!" << std::endl;
-          }
+          // if ((elapsed_time_ >= move_duration_) ||
+          //     (((fingertip_pos - target_p_).norm() < finish_tolerance_) &&
+          //     (rot_err < 0.05) &&
+          //     (elapsed_time_ >= 1.0 * move_duration_)))
+          // {
+          //   move_1_finished_ = true;
+          //   q_goal_.head<7>() = q_des_.head<7>();   // 建议补这一句
+          //   std::cout << "!!! move_1_finished !!!" << std::endl;
+          // }
         }
         else 
         {
@@ -1912,17 +2205,213 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
       {
         if(abs(elapsed_time_)<=1e-6)
         {
-          std::cout<<"switch to the MOVE_POSE_2, move to the plugin init pose" <<std::endl;
+          // std::cout<<"switch to the MOVE_POSE_2, move to the plugin init pose" <<std::endl;
+          std::cout<<"switch to the MOVE_POSE_2, move to the placing pose" <<std::endl;
           std::cout<<"Real q:"<<q_.transpose() <<std::endl;
           std::cout<<"q_goal_ for move pose 2:"<<q_goal_2_.transpose() <<std::endl;
           // std::cout<<"kin_initialized_:"<<kin_initialized_<<std::endl;
           // std::cout<<"osc_initialized_:"<<osc_initialized_<<std::endl;
+          // =========================================================================================================================================
+          q_policy_target_ = q_;
+
+          // Resetting policy timer
+          rl_timer_ = 0.0;
+          // Resetting observations
+          rl_obs_.fill(0.0f);
+          rl_prev_action_.fill(0.0f);
+          action_rl_bg_.fill(0.0f);
+          action_rl_bg_valid_ = false;
         }
 
         elapsed_time_ += dt;
+        rl_timer_ += dt;
         // In MOVE_POSE_2: generate EE pos by linear interpolation
         if (!move_2_finished_) 
         {
+          constexpr float phase_mask = 1.0f;
+          
+          // ids[0:6] = normalized arm joint position 
+          // ids[9:15] = normalized arm joint velocities
+          for (int i=0; i<7; i++){
+            const double lower = robot_dof_lower_limit_[i];
+            const double upper = robot_dof_upper_limit_[i];
+            const double denom = std::max(1e-9, upper - lower);
+
+            double q_norm = 2.0 * (q_(i) - lower)/denom - 1.0;
+            if(!std::isfinite(q_norm)){q_norm = 0.0;}
+
+            double dq_norm = dq_(i) * dof_velocity_scale_;
+            if(!std::isfinite(dq_norm)){dq_norm = 0.0;}
+
+            rl_obs_[i] = static_cast<float>(std::clamp(q_norm, -5.0, 5.0));
+            rl_obs_[9 + i] = static_cast<float>(std::clamp(dq_norm, -5.0, 5.0));
+          }
+
+          // hardcoded finger position and velocity -> open with vel = 0
+          const double finger_pos[2] = {finger_closed_pos_, finger_closed_pos_};
+          const double finger_vel[2] = {0.0, 0.0};
+
+          for (int i=0; i<2; i++) {
+            const int idx = 7 + i;
+
+            const double lower = robot_dof_lower_limit_[idx];
+            const double upper = robot_dof_upper_limit_[idx];
+            const double denom = std::max(1e-9, upper - lower);
+
+            double q_norm = 2.0 * (finger_pos[i] - lower)/denom - 1.0;
+            if(!std::isfinite(q_norm)){q_norm = 0.0;}
+
+            double dq_norm = finger_vel[i] * dof_velocity_scale_;
+            if(!std::isfinite(dq_norm)){dq_norm = 0.0;}
+
+            rl_obs_[idx] = static_cast<float>(std::clamp(q_norm, -5.0, 5.0));
+            rl_obs_[9 + idx] = static_cast<float>(std::clamp(dq_norm, -5.0, 5.0));
+          }
+
+          // reaching phase flag = 0
+          rl_obs_[18] = phase_mask;
+
+          // 3D error vector to the target
+          const Eigen::Vector3d to_target = target_p_2_ - fingertip_pos;
+          rl_obs_[19] = static_cast<float>(to_target.x());
+          rl_obs_[20] = static_cast<float>(to_target.y());
+          rl_obs_[21] = static_cast<float>(to_target.z());
+
+          // orientation error
+          Eigen::Quaterniond q_hand(
+            fingertip_quat[0],
+            fingertip_quat[1],
+            fingertip_quat[2],
+            fingertip_quat[3]
+          );
+          q_hand.normalize();
+
+          Eigen::Quaterniond q_target(
+            target_q_xyzw_2_[3],
+            target_q_xyzw_2_[0],
+            target_q_xyzw_2_[1],
+            target_q_xyzw_2_[2]
+          );
+          q_target.normalize();
+          const double quat_dot = std::abs(
+            move1_target_quat_.w() * fingertip_quat[0] +
+            move1_target_quat_.x() * fingertip_quat[1] +
+            move1_target_quat_.y() * fingertip_quat[2] +
+            move1_target_quat_.z() * fingertip_quat[3]);
+          const double rot_err = 2.0 * std::acos(std::clamp(quat_dot, 0.0, 1.0));
+
+          Eigen::Quaterniond q_rel = q_target * q_hand.conjugate();
+          q_rel.normalize();
+          
+
+          if (q_rel.w() < 0.0) {q_rel.coeffs() *= -1.0;}
+
+          const Eigen::Vector3d qv(q_rel.x(), q_rel.y(), q_rel.z());
+          const double qw = std::max(1e-8, q_rel.w());
+          const double nv = qv.norm();
+
+          Eigen::Vector3d ori_err = Eigen::Vector3d::Zero();
+
+          if (nv > 1e-6) {
+            const double angle = 2.0 * std::atan2(nv, qw);
+            ori_err = angle * qv / nv;
+          }
+          else {
+            ori_err = 2.0 * qv;
+          }
+          ori_err /= M_PI;
+          
+          rl_obs_[22] = static_cast<float>(std::clamp(ori_err.x(), -1.0, 1.0));
+          rl_obs_[23] = static_cast<float>(std::clamp(ori_err.y(), -1.0, 1.0));
+          rl_obs_[24] = static_cast<float>(std::clamp(ori_err.z(), -1.0, 1.0));
+
+          // lift_height == 0, before the grasp
+          rl_obs_[25] = static_cast<float>(fingertip_pos.z());
+
+          if (policy_ && rl_timer_ >= rl_dt_) {
+            const double policy_dt = rl_timer_;
+            rl_timer_ = 0.0;
+            // obs[26:46] = clear_obs
+            //
+            // In the simulations there where the probe points, recreated in this section with added pinocchio functions
+            // ------------------------------------------------------------
+            updateClearObsFromPinocchio();
+
+            for (int i = 0; i < 20; ++i)
+            {
+              float v = clear_obs_[i];
+            
+              if (!std::isfinite(v)) {
+                v = 0.0f;
+              }
+            
+              rl_obs_[26 + i] = std::clamp(v, -5.0f, 5.0f);
+            }
+          
+            // Protezione finale equivalente a torch.nan_to_num + clamp.
+            for (float& v : rl_obs_)
+            {
+              if (!std::isfinite(v)) {
+                v = 0.0f;
+              }
+            
+              v = std::clamp(v, -5.0f, 5.0f);
+            }
+            auto action = policy_->infer(rl_obs_);
+            action_rl_bg_ = action;
+            action_rl_bg_valid_ = true;
+            rl_prev_action_ = action;
+
+            // IsaacLab:
+            // targets_arm =
+            //   robot_dof_targets[:, :-2]
+            //   + robot_dof_speed_scales[:-2] * dt * arm_actions * action_scale
+            for (int i = 0; i < 7; i++){
+              double a = static_cast<double>(action[i]);
+              if (!std::isfinite(a)) {a = 0.0;}
+              a = std::clamp(a, -1.0, 1.0);
+              q_policy_target_(i) += robot_dof_speed_scales_[i] * policy_dt * a * action_scale_;
+              q_policy_target_(i) = std::clamp(q_policy_target_(i), robot_dof_lower_limit_[i], robot_dof_upper_limit_[i]);
+              // the action for the gripper is ignored becouse it will be closed with GRASP phase
+            }
+          }
+
+          q_des_.head<7>() = q_policy_target_;
+          q_goal_.head<7>() = q_des_.head<7>();
+
+          // Se stai usando solo joint PD, questa parte non è critica.
+          if (kin_initialized_)
+          {
+            const pinocchio::SE3 ee_ref_policy = pino_.fk(q_des_.head<7>());
+            ee6_ref_ = se3ToXyzRpy(ee_ref_policy);
+          }
+          else {
+            ee6_ref_.setZero();
+          }
+
+          const double dist_pick = (target_p_2_ - fingertip_pos).norm();
+
+          if (N_torque_ % 1000 == 0)
+          {
+            std::cout << "[MOVE_POSE_2 PICK POLICY]" << std::endl;
+            std::cout << "q: " << q_.transpose() << std::endl;
+            std::cout << "q_des: " << q_des_.transpose() << std::endl;
+            std::cout << "target_p_: " << target_p_.transpose() << std::endl;
+            std::cout << "fingertip_pos: " << fingertip_pos.transpose() << std::endl;
+            std::cout << "to_target: " << to_target.transpose() << std::endl;
+            std::cout << "dist_pick: " << dist_pick << std::endl;
+          }
+
+          if ((elapsed_time_ >= move_duration_) || ((dist_pick < r_in_) && (rot_err < 0.05) && (elapsed_time_ >= 1.0 * move_duration_))) {
+            
+            move_2_finished_ = true;
+
+            q_goal_.head<7>() = q_des_.head<7>();
+
+            std::cout << "!!! move_2_finished: !!!" << std::endl;
+            std::cout << "dist_pick = " << dist_pick << std::endl;
+            std::cout << "q_goal_ = " << q_goal_.transpose() << std::endl;
+          }
           // const double s = std::clamp(elapsed_time_ / std::max(1e-6, move_duration_2_), 0.0, 1.0);
           // q_des_ = (1.0 - s) * q_start_ + s * q_goal_2_;
 
@@ -1932,70 +2421,72 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
           //   hand_wrench_default = hand_wrench; 
           //   std::cout<<"!!! move_2_finished !!!"<<std::endl;
           // }
-          auto quintic = [](double tau) -> double {
-            tau = std::clamp(tau, 0.0, 1.0);
-            const double tau2 = tau * tau;
-            const double tau3 = tau2 * tau;
-            const double tau4 = tau3 * tau;
-            const double tau5 = tau4 * tau;
-            return 10.0 * tau3 - 15.0 * tau4 + 6.0 * tau5;
-          };
+          // auto quintic = [](double tau) -> double {
+          //   tau = std::clamp(tau, 0.0, 1.0);
+          //   const double tau2 = tau * tau;
+          //   const double tau3 = tau2 * tau;
+          //   const double tau4 = tau3 * tau;
+          //   const double tau5 = tau4 * tau;
+          //   return 10.0 * tau3 - 15.0 * tau4 + 6.0 * tau5;
+          // };
 
-          const double lift_duration_2 = 0.5 * move_duration_2_;
-          const double move_duration_2_remain = 0.5 * move_duration_2_;
+          // const double lift_duration_2 = 0.5 * move_duration_2_;
+          // const double move_duration_2_remain = 0.5 * move_duration_2_;
 
-          Eigen::Vector3d pos_ref = move1_start_pos_;
+          // Eigen::Vector3d pos_ref = move1_start_pos_;
 
-          if (elapsed_time_ <= lift_duration_2) {
-            const double s1 = quintic(elapsed_time_ / std::max(1e-6, lift_duration_2));
-            pos_ref = move1_start_pos_ + s1 * (move1_lift_pos_ - move1_start_pos_);
-          } else {
-            const double t2 = elapsed_time_ - lift_duration_2;
-            const double s2 = quintic(t2 / std::max(1e-6, move_duration_2_remain));
-            pos_ref = move1_lift_pos_ + s2 * (target_p_2_ - move1_lift_pos_);
-          }
+          // if (elapsed_time_ <= lift_duration_2) {
+          //   const double s1 = quintic(elapsed_time_ / std::max(1e-6, lift_duration_2));
+          //   pos_ref = move1_start_pos_ + s1 * (move1_lift_pos_ - move1_start_pos_);
+          // } else {
+          //   const double t2 = elapsed_time_ - lift_duration_2;
+          //   const double s2 = quintic(t2 / std::max(1e-6, move_duration_2_remain));
+          //   pos_ref = move1_lift_pos_ + s2 * (target_p_2_ - move1_lift_pos_);
+          // }
 
-          const double s_total = quintic(
-              std::clamp(elapsed_time_ / std::max(1e-6, move_duration_2_), 0.0, 1.0));
+          // const double s_total = quintic(
+          //     std::clamp(elapsed_time_ / std::max(1e-6, move_duration_2_), 0.0, 1.0));
 
-          Eigen::Quaterniond quat_ref =
-              move1_start_quat_.slerp(s_total, move1_target_quat_);
-          quat_ref.normalize();
+          // Eigen::Quaterniond quat_ref =
+          //     move1_start_quat_.slerp(s_total, move1_target_quat_);
+          // quat_ref.normalize();
 
-          pinocchio::SE3 ee_ref_move2(quat_ref.toRotationMatrix(), pos_ref);
-          ee6_ref_ = poseToXyzRpy(pos_ref, quat_ref);
+          // pinocchio::SE3 ee_ref_move2(quat_ref.toRotationMatrix(), pos_ref);
+          // ee6_ref_ = poseToXyzRpy(pos_ref, quat_ref);
 
-          if (kin_initialized_) {
-            Vector7d q_seed = q_des_.head<7>();
-            if (elapsed_time_ <= 2.0 * dt) {
-              q_seed = q_.head<7>();
-            }
+          // if (kin_initialized_) {
+          //   Vector7d q_seed = q_des_.head<7>();
+          //   if (elapsed_time_ <= 2.0 * dt) {
+          //     q_seed = q_.head<7>();
+          //   }
 
-            Vector7d q_sol = q_seed;
-            double final_err = -1.0;
-            bool ok = pino_.ik(ee_ref_move2, q_seed, q_sol, ik_opt_, &final_err);
+          //   Vector7d q_sol = q_seed;
+          //   double final_err = -1.0;
+          //   bool ok = pino_.ik(ee_ref_move2, q_seed, q_sol, ik_opt_, &final_err);
 
-            if (ok) {
-              q_des_.head<7>() = q_sol;
-            }
-          }
+          //   if (ok) {
+          //     q_des_.head<7>() = q_sol;
+          //   }
+          // }
 
-          const double quat_dot = std::abs(
-              move1_target_quat_.w() * fingertip_quat[0] +
-              move1_target_quat_.x() * fingertip_quat[1] +
-              move1_target_quat_.y() * fingertip_quat[2] +
-              move1_target_quat_.z() * fingertip_quat[3]);
+          // const double quat_dot = std::abs(
+          //     move1_target_quat_.w() * fingertip_quat[0] +
+          //     move1_target_quat_.x() * fingertip_quat[1] +
+          //     move1_target_quat_.y() * fingertip_quat[2] +
+          //     move1_target_quat_.z() * fingertip_quat[3]);
 
-          const double rot_err = 2.0 * std::acos(std::clamp(quat_dot, 0.0, 1.0));
+          // const double rot_err = 2.0 * std::acos(std::clamp(quat_dot, 0.0, 1.0));
 
-          if ((elapsed_time_ >= move_duration_2_) ||
-              (((fingertip_pos - target_p_2_).norm() < finish_tolerance_) &&
-              (rot_err < 0.05))) {
-            move_2_finished_ = true;
-            q_goal_2_.head<7>() = q_des_.head<7>();
-            hand_wrench_default = hand_wrench;
-            std::cout << "!!! move_2_finished !!!" << std::endl;
-          }
+          // if ((elapsed_time_ >= move_duration_2_) ||
+          //     (((fingertip_pos - target_p_2_).norm() < finish_tolerance_) &&
+          //     (rot_err < 0.05))) {
+          //   move_2_finished_ = true;
+          //   q_goal_2_.head<7>() = q_des_.head<7>();
+          //   hand_wrench_default = hand_wrench;
+          //   std::cout << "!!! move_2_finished !!!" << std::endl;
+          // }
+
+          //=====================================================================================================================================
 
 
 
@@ -2014,483 +2505,483 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
       }   
       case TaskCmd::RUN_RL:
       {
-        if(abs(elapsed_time_)<=1e-6)
-        {
-          std::cout<<"switch to the RL_POLICY, Gear meshing" <<std::endl;
-          std::cout<<"Real q:"<<q_.transpose() <<std::endl;
-          std::cout<<"des for move_pose_2:"<<q_goal_2_.transpose() <<std::endl;
+        // if(abs(elapsed_time_)<=1e-6)
+        // {
+        //   std::cout<<"switch to the RL_POLICY, Gear meshing" <<std::endl;
+        //   std::cout<<"Real q:"<<q_.transpose() <<std::endl;
+        //   std::cout<<"des for move_pose_2:"<<q_goal_2_.transpose() <<std::endl;
 
-          q_interp_start_ = q_des_;
+        //   q_interp_start_ = q_des_;
 
 
-          // Reset RL Cartesian target to the actually reached fingertip pose
-          rl_ctrl_target_fingertip_midpoint_pos = fingertip_pos;
+        //   // Reset RL Cartesian target to the actually reached fingertip pose
+        //   rl_ctrl_target_fingertip_midpoint_pos = fingertip_pos;
 
-          rl_ctrl_target_fingertip_midpoint_quat.w() = fingertip_quat[0];
-          rl_ctrl_target_fingertip_midpoint_quat.x() = fingertip_quat[1];
-          rl_ctrl_target_fingertip_midpoint_quat.y() = fingertip_quat[2];
-          rl_ctrl_target_fingertip_midpoint_quat.z() = fingertip_quat[3];
+        //   rl_ctrl_target_fingertip_midpoint_quat.w() = fingertip_quat[0];
+        //   rl_ctrl_target_fingertip_midpoint_quat.x() = fingertip_quat[1];
+        //   rl_ctrl_target_fingertip_midpoint_quat.y() = fingertip_quat[2];
+        //   rl_ctrl_target_fingertip_midpoint_quat.z() = fingertip_quat[3];
 
-          target_p_3_ = rl_ctrl_target_fingertip_midpoint_pos;
-          target_q_xyzw_3_[0] = rl_ctrl_target_fingertip_midpoint_quat.x();
-          target_q_xyzw_3_[1] = rl_ctrl_target_fingertip_midpoint_quat.y();
-          target_q_xyzw_3_[2] = rl_ctrl_target_fingertip_midpoint_quat.z();
-          target_q_xyzw_3_[3] = rl_ctrl_target_fingertip_midpoint_quat.w();
+        //   target_p_3_ = rl_ctrl_target_fingertip_midpoint_pos;
+        //   target_q_xyzw_3_[0] = rl_ctrl_target_fingertip_midpoint_quat.x();
+        //   target_q_xyzw_3_[1] = rl_ctrl_target_fingertip_midpoint_quat.y();
+        //   target_q_xyzw_3_[2] = rl_ctrl_target_fingertip_midpoint_quat.z();
+        //   target_q_xyzw_3_[3] = rl_ctrl_target_fingertip_midpoint_quat.w();
 
-          rl_ctrl_target_fingertip_midpoint_pos_bg_ = rl_ctrl_target_fingertip_midpoint_pos;
-          rl_ctrl_target_fingertip_midpoint_quat_bg_ = rl_ctrl_target_fingertip_midpoint_quat;
+        //   rl_ctrl_target_fingertip_midpoint_pos_bg_ = rl_ctrl_target_fingertip_midpoint_pos;
+        //   rl_ctrl_target_fingertip_midpoint_quat_bg_ = rl_ctrl_target_fingertip_midpoint_quat;
 
-          std::cout<<"fingertip_pos entering RL loop:"<<fingertip_pos.transpose() <<std::endl;
-          std::cout<<"rl_ctrl_target_fingertip_midpoint_pos entering RL loop:"<<rl_ctrl_target_fingertip_midpoint_pos.transpose()<<std::endl;
-          std::cout << "rl_ctrl_target_fingertip_midpoint_quat[xyzw] entering RL loop: ["
-          << rl_ctrl_target_fingertip_midpoint_quat.x() << ", "
-          << rl_ctrl_target_fingertip_midpoint_quat.y() << ", "
-          << rl_ctrl_target_fingertip_midpoint_quat.z() << ", "
-          << rl_ctrl_target_fingertip_midpoint_quat.w() << "]"
-          << std::endl;
+        //   std::cout<<"fingertip_pos entering RL loop:"<<fingertip_pos.transpose() <<std::endl;
+        //   std::cout<<"rl_ctrl_target_fingertip_midpoint_pos entering RL loop:"<<rl_ctrl_target_fingertip_midpoint_pos.transpose()<<std::endl;
+        //   std::cout << "rl_ctrl_target_fingertip_midpoint_quat[xyzw] entering RL loop: ["
+        //   << rl_ctrl_target_fingertip_midpoint_quat.x() << ", "
+        //   << rl_ctrl_target_fingertip_midpoint_quat.y() << ", "
+        //   << rl_ctrl_target_fingertip_midpoint_quat.z() << ", "
+        //   << rl_ctrl_target_fingertip_midpoint_quat.w() << "]"
+        //   << std::endl;
           
-          wrench_ext_o_bias_ = computeWrenchExtOBias();
+        //   wrench_ext_o_bias_ = computeWrenchExtOBias();
 
-          for (int k = 0; k < 6; ++k) {
-            hand_wrench_default[k] = wrench_ext_o_bias_[k];
-          }          
-          RCLCPP_INFO(
-            get_node()->get_logger(),
-            "wrench_ext_o bias = [%.4f, %.4f, %.4f, %.4f, %.4f, %.4f]",
-            wrench_ext_o_bias_[0], wrench_ext_o_bias_[1], wrench_ext_o_bias_[2],
-            wrench_ext_o_bias_[3], wrench_ext_o_bias_[4], wrench_ext_o_bias_[5]);
-        }
+        //   for (int k = 0; k < 6; ++k) {
+        //     hand_wrench_default[k] = wrench_ext_o_bias_[k];
+        //   }          
+        //   RCLCPP_INFO(
+        //     get_node()->get_logger(),
+        //     "wrench_ext_o bias = [%.4f, %.4f, %.4f, %.4f, %.4f, %.4f]",
+        //     wrench_ext_o_bias_[0], wrench_ext_o_bias_[1], wrench_ext_o_bias_[2],
+        //     wrench_ext_o_bias_[3], wrench_ext_o_bias_[4], wrench_ext_o_bias_[5]);
+        // }
 
-        rl_target_valid_ = false;
-        elapsed_time_ += dt;
-        rl_timer_ += dt;
-        // In RUN_RL: generate joint angle by RL policy
-        if (!rl_finished_) 
-        {
+        // rl_target_valid_ = false;
+        // elapsed_time_ += dt;
+        // rl_timer_ += dt;
+        // // In RUN_RL: generate joint angle by RL policy
+        // if (!rl_finished_) 
+        // {
 
-          if(rl_test_)
-          {
-            q_des_ = q_goal_2_;
+        //   if(rl_test_)
+        //   {
+        //     q_des_ = q_goal_2_;
 
-          }
-          else
-          {
-            // q_des_ = q_goal_3_;
+        //   }
+        //   else
+        //   {
+        //     // q_des_ = q_goal_3_;
 
-            // // achieving smooth behavior
-            q_interp_alpha_ = std::clamp(rl_timer_ / rl_dt_, 0.0, 1.0);
-            q_des_ = q_interp_start_ + q_interp_alpha_ * (q_goal_3_ - q_interp_start_);
-
-
-          }  
+        //     // // achieving smooth behavior
+        //     q_interp_alpha_ = std::clamp(rl_timer_ / rl_dt_, 0.0, 1.0);
+        //     q_des_ = q_interp_start_ + q_interp_alpha_ * (q_goal_3_ - q_interp_start_);
 
 
-          if (policy_ && rl_timer_ >= rl_dt_ ) 
-          {
+        //   }  
 
-            // updateEeVelFd(fingertip_pos, q_now, rl_dt_, ee_linvel, ee_angvel);
-            rt_infer_count += 1;     
-            rl_timer_ = 0.0;
-            // --------------------------
-            // 5) 组装 rl_obs_ (float[28])，严格按训练顺序
-            // --------------------------
-            rl_obs_.fill(0.0f);
 
-            int idx = 0;
+        //   if (policy_ && rl_timer_ >= rl_dt_ ) 
+        //   {
 
-            // (1) fingertip_pos_rel_fixed (3)
-            rl_obs_[idx++] = static_cast<float>(fingertip_pos_rel_fixed.x());
-            rl_obs_[idx++] = static_cast<float>(fingertip_pos_rel_fixed.y());
-            rl_obs_[idx++] = static_cast<float>(fingertip_pos_rel_fixed.z());
+        //     // updateEeVelFd(fingertip_pos, q_now, rl_dt_, ee_linvel, ee_angvel);
+        //     rt_infer_count += 1;     
+        //     rl_timer_ = 0.0;
+        //     // --------------------------
+        //     // 5) 组装 rl_obs_ (float[28])，严格按训练顺序
+        //     // --------------------------
+        //     rl_obs_.fill(0.0f);
 
-            // (2) fingertip_quat (4)  w,x,y,z
-            rl_obs_[idx++] = static_cast<float>(fingertip_quat[0]); // w
-            rl_obs_[idx++] = static_cast<float>(fingertip_quat[1]); // x
-            rl_obs_[idx++] = static_cast<float>(fingertip_quat[2]); // y
-            rl_obs_[idx++] = static_cast<float>(fingertip_quat[3]); // z
+        //     int idx = 0;
 
-            // (3) ee_linvel (3)
-            rl_obs_[idx++] = static_cast<float>(ee_linvel.x());
-            rl_obs_[idx++] = static_cast<float>(ee_linvel.y());
-            rl_obs_[idx++] = static_cast<float>(ee_linvel.z());
+        //     // (1) fingertip_pos_rel_fixed (3)
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_pos_rel_fixed.x());
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_pos_rel_fixed.y());
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_pos_rel_fixed.z());
 
-            // (4) ee_angvel (3)
-            rl_obs_[idx++] = static_cast<float>(ee_angvel.x());
-            rl_obs_[idx++] = static_cast<float>(ee_angvel.y());
-            rl_obs_[idx++] = static_cast<float>(ee_angvel.z());
+        //     // (2) fingertip_quat (4)  w,x,y,z
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_quat[0]); // w
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_quat[1]); // x
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_quat[2]); // y
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_quat[3]); // z
 
-            // (5) fingertip_pos (3)
-            rl_obs_[idx++] = static_cast<float>(fingertip_pos.x());
-            rl_obs_[idx++] = static_cast<float>(fingertip_pos.y());
-            rl_obs_[idx++] = static_cast<float>(fingertip_pos.z());
+        //     // (3) ee_linvel (3)
+        //     rl_obs_[idx++] = static_cast<float>(ee_linvel.x());
+        //     rl_obs_[idx++] = static_cast<float>(ee_linvel.y());
+        //     rl_obs_[idx++] = static_cast<float>(ee_linvel.z());
 
-            // (6) hand_wrench (6) [Fx,Fy,Fz,Tx,Ty,Tz]
-            for (int k = 0; k < 6; ++k) {
-              rl_obs_[idx++] = static_cast<float>((hand_wrench[k]-hand_wrench_default[k]));
-            }
+        //     // (4) ee_angvel (3)
+        //     rl_obs_[idx++] = static_cast<float>(ee_angvel.x());
+        //     rl_obs_[idx++] = static_cast<float>(ee_angvel.y());
+        //     rl_obs_[idx++] = static_cast<float>(ee_angvel.z());
 
-            // (7) prev_actions (6)
-            for (int k = 0; k < 6; ++k) {
-              rl_obs_[idx++] = rl_prev_action_[k];
-            }
+        //     // (5) fingertip_pos (3)
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_pos.x());
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_pos.y());
+        //     rl_obs_[idx++] = static_cast<float>(fingertip_pos.z());
+
+        //     // (6) hand_wrench (6) [Fx,Fy,Fz,Tx,Ty,Tz]
+        //     for (int k = 0; k < 6; ++k) {
+        //       rl_obs_[idx++] = static_cast<float>((hand_wrench[k]-hand_wrench_default[k]));
+        //     }
+
+        //     // (7) prev_actions (6)
+        //     for (int k = 0; k < 6; ++k) {
+        //       rl_obs_[idx++] = rl_prev_action_[k];
+        //     }
             
 
 
-            /// compare with python model
-            const std::array<std::array<float, 28>, 10> rl_obs_debug_seq = {{
-                {{
-                    0.0133499f,  0.0132065f,  0.0356440f,
-                    5.57733e-05f, 0.948364f,  0.317183f,  0.000496372f,
-                    0.0f,        0.0f,        0.0f,
-                    0.0f,        0.0f,        0.0f,
-                    0.653535f,   0.0533694f,  0.159303f,
-                    -0.0225031f, -0.00610229f, -0.0186993f,
-                    -0.000634027f, 0.000454222f, -0.00051686f,
-                    0.266998f,   0.264131f,   0.71288f,
-                    0.0f,        0.0f,        0.0593679f
-                }},
-                {{
-                    0.0114145f,  0.0122277f,  0.0344917f,
-                    7.04028e-05f, 0.949035f,  0.315171f, -0.000628459f,
-                    -0.0385594f, -0.0225806f, -0.0334167f,
-                    -0.00983859f, 0.029358f,  -0.061512f,
-                    0.6516f,     0.0523905f,  0.15815f,
-                    -0.297489f,   0.0438133f,  0.41248f,
-                    -0.00717521f, 0.00444819f, 0.00159193f,
-                    -0.934255f,  -0.760142f,  -1.6584f,
-                    0.976882f,  -0.780937f,  -0.206983f
-                }},
-                {{
-                    0.00815636f, 0.00964827f, 0.0299656f,
-                    0.000178994f, 0.949337f, 0.314256f, -0.00145593f,
-                    -0.0562191f, -0.0492565f, -0.0934446f,
-                    -0.00812596f, 0.017919f,  -0.0297402f,
-                    0.648342f,   0.0498112f, 0.153624f,
-                    -0.297962f,   0.10795f,   0.642282f,
-                    -0.00541552f, 0.00636913f, 0.000916491f,
-                    -0.577084f,  -1.14015f,   -3.28605f,
-                    0.426549f,  -1.49844f,   -0.146642f
-                }},
-                {{
-                    0.00429499f, 0.00571864f, 0.021645f,
-                    0.000237286f, 0.948491f, 0.3168f, -0.00148267f,
-                    -0.0597382f, -0.0665197f, -0.146089f,
-                    -0.0010804f, -0.00502843f, 0.0761658f,
-                    0.64448f,    0.0458815f, 0.145304f,
-                    -0.168989f,   0.115991f,  0.533401f,
-                    -0.00378188f,-0.00468064f, 8.03585e-05f,
-                    -6.51479e-05f, -1.00539f, -4.26262f,
-                    -0.538824f,  -2.36427f,   0.151123f
-                }},
-                {{
-                    0.000654221f, 0.00214989f, 0.0131826f,
-                    -0.000287906f, 0.946651f, 0.32226f, -0.000812189f,
-                    -0.0499248f, -0.0312267f, -0.0630909f,
-                    0.0357707f, -0.0204555f, 0.169956f,
-                    0.640839f,   0.0423128f, 0.136841f,
-                    3.49794f,    4.17594f,   23.9741f,
-                    -0.329715f,   0.298579f,  0.0175709f,
-                    0.595454f,  -0.562321f, -4.88331f,
-                    -1.5109f,    -3.1349f,    0.399982f
-                }},
-                {{
-                    -0.000657082f, 0.00106381f, 0.0140826f,
-                    -0.000296223f, 0.944961f, 0.32718f, 0.000953141f,
-                    -0.0262499f, -0.021421f,  0.00568271f,
-                    -0.00473291f, 0.0069089f, 0.155786f,
-                    0.639528f,   0.0412267f, 0.137741f,
-                    -0.225041f,   0.104224f,  0.832875f,
-                    0.00663477f,-0.0334866f, 0.00189754f,
-                    0.647551f,  -0.512717f, -4.01465f,
-                    -1.65751f,   -2.51048f,   0.449527f
-                }},
-                {{
-                    -0.00176132f, -0.000352737f, 0.0127941f,
-                    -0.000364046f, 0.944224f, 0.329299f, 0.00170345f,
-                    0.000901222f,-0.011854f, -0.0149775f,
-                    0.0341645f, -0.0701962f, 0.0728566f,
-                    0.638424f,   0.0398102f, 0.136453f,
-                    -0.712159f,   1.6639f,    14.374f,
-                    -0.175807f,  -0.0973861f, 0.0307293f,
-                    1.32038f,   -0.167674f, -3.18339f,
-                    -1.61465f,   -2.02266f,   0.175758f
-                }},
-                {{
-                    -0.00210047f, -0.000486623f, 0.0128114f,
-                    -0.000777814f, 0.94333f,  0.33185f, 0.00204509f,
-                    -0.00836849f, -0.000962913f, -0.0093019f,
-                    0.00256343f, 0.00545443f, 0.0799136f,
-                    0.638085f,   0.0396763f,  0.13647f,
-                    0.219305f,   0.392154f,    5.15621f,
-                    -0.025052f,   0.0124259f,   0.00445469f,
-                    0.486676f,   0.14202f,    -2.87769f,
-                    -1.0872f,    -1.73855f,     0.226202f
-                }},
-                {{
-                    -0.00202984f, -0.000422459f, 0.0127556f,
-                    -0.000639233f, 0.943233f, 0.332124f, 0.00226928f,
-                    0.00275373f, -0.000731349f, -0.00316501f,
-                    -0.00767754f, -0.00261773f, 0.010203f,
-                    0.638155f,   0.0397404f,   0.136414f,
-                    1.27219f,   -0.261368f,    6.17333f,
-                    0.0408175f,  0.0907637f,  -0.00845671f,
-                    0.8045f,     0.283839f,   -2.43659f,
-                    -1.00014f,   -1.44077f,    -0.0127086f
-                }},
-                {{
-                    -0.00170988f, -0.00026533f, 0.0129406f,
-                    -0.000621466f, 0.943648f, 0.330944f, 0.00217249f,
-                    0.00457764f, 0.00636622f, -0.00131428f,
-                    0.00434273f, 0.00624766f, -0.0358968f,
-                    0.638475f,   0.0398976f,  0.136599f,
-                    1.38619f,    0.812975f,   3.70114f,
-                    -0.034688f,   0.0633193f,  0.00123114f,
-                    0.757081f,   0.467729f,  -1.98892f,
-                    -0.746301f,  -1.15563f,   -0.173511f
-                }}
-            }};      
+        //     /// compare with python model
+        //     const std::array<std::array<float, 28>, 10> rl_obs_debug_seq = {{
+        //         {{
+        //             0.0133499f,  0.0132065f,  0.0356440f,
+        //             5.57733e-05f, 0.948364f,  0.317183f,  0.000496372f,
+        //             0.0f,        0.0f,        0.0f,
+        //             0.0f,        0.0f,        0.0f,
+        //             0.653535f,   0.0533694f,  0.159303f,
+        //             -0.0225031f, -0.00610229f, -0.0186993f,
+        //             -0.000634027f, 0.000454222f, -0.00051686f,
+        //             0.266998f,   0.264131f,   0.71288f,
+        //             0.0f,        0.0f,        0.0593679f
+        //         }},
+        //         {{
+        //             0.0114145f,  0.0122277f,  0.0344917f,
+        //             7.04028e-05f, 0.949035f,  0.315171f, -0.000628459f,
+        //             -0.0385594f, -0.0225806f, -0.0334167f,
+        //             -0.00983859f, 0.029358f,  -0.061512f,
+        //             0.6516f,     0.0523905f,  0.15815f,
+        //             -0.297489f,   0.0438133f,  0.41248f,
+        //             -0.00717521f, 0.00444819f, 0.00159193f,
+        //             -0.934255f,  -0.760142f,  -1.6584f,
+        //             0.976882f,  -0.780937f,  -0.206983f
+        //         }},
+        //         {{
+        //             0.00815636f, 0.00964827f, 0.0299656f,
+        //             0.000178994f, 0.949337f, 0.314256f, -0.00145593f,
+        //             -0.0562191f, -0.0492565f, -0.0934446f,
+        //             -0.00812596f, 0.017919f,  -0.0297402f,
+        //             0.648342f,   0.0498112f, 0.153624f,
+        //             -0.297962f,   0.10795f,   0.642282f,
+        //             -0.00541552f, 0.00636913f, 0.000916491f,
+        //             -0.577084f,  -1.14015f,   -3.28605f,
+        //             0.426549f,  -1.49844f,   -0.146642f
+        //         }},
+        //         {{
+        //             0.00429499f, 0.00571864f, 0.021645f,
+        //             0.000237286f, 0.948491f, 0.3168f, -0.00148267f,
+        //             -0.0597382f, -0.0665197f, -0.146089f,
+        //             -0.0010804f, -0.00502843f, 0.0761658f,
+        //             0.64448f,    0.0458815f, 0.145304f,
+        //             -0.168989f,   0.115991f,  0.533401f,
+        //             -0.00378188f,-0.00468064f, 8.03585e-05f,
+        //             -6.51479e-05f, -1.00539f, -4.26262f,
+        //             -0.538824f,  -2.36427f,   0.151123f
+        //         }},
+        //         {{
+        //             0.000654221f, 0.00214989f, 0.0131826f,
+        //             -0.000287906f, 0.946651f, 0.32226f, -0.000812189f,
+        //             -0.0499248f, -0.0312267f, -0.0630909f,
+        //             0.0357707f, -0.0204555f, 0.169956f,
+        //             0.640839f,   0.0423128f, 0.136841f,
+        //             3.49794f,    4.17594f,   23.9741f,
+        //             -0.329715f,   0.298579f,  0.0175709f,
+        //             0.595454f,  -0.562321f, -4.88331f,
+        //             -1.5109f,    -3.1349f,    0.399982f
+        //         }},
+        //         {{
+        //             -0.000657082f, 0.00106381f, 0.0140826f,
+        //             -0.000296223f, 0.944961f, 0.32718f, 0.000953141f,
+        //             -0.0262499f, -0.021421f,  0.00568271f,
+        //             -0.00473291f, 0.0069089f, 0.155786f,
+        //             0.639528f,   0.0412267f, 0.137741f,
+        //             -0.225041f,   0.104224f,  0.832875f,
+        //             0.00663477f,-0.0334866f, 0.00189754f,
+        //             0.647551f,  -0.512717f, -4.01465f,
+        //             -1.65751f,   -2.51048f,   0.449527f
+        //         }},
+        //         {{
+        //             -0.00176132f, -0.000352737f, 0.0127941f,
+        //             -0.000364046f, 0.944224f, 0.329299f, 0.00170345f,
+        //             0.000901222f,-0.011854f, -0.0149775f,
+        //             0.0341645f, -0.0701962f, 0.0728566f,
+        //             0.638424f,   0.0398102f, 0.136453f,
+        //             -0.712159f,   1.6639f,    14.374f,
+        //             -0.175807f,  -0.0973861f, 0.0307293f,
+        //             1.32038f,   -0.167674f, -3.18339f,
+        //             -1.61465f,   -2.02266f,   0.175758f
+        //         }},
+        //         {{
+        //             -0.00210047f, -0.000486623f, 0.0128114f,
+        //             -0.000777814f, 0.94333f,  0.33185f, 0.00204509f,
+        //             -0.00836849f, -0.000962913f, -0.0093019f,
+        //             0.00256343f, 0.00545443f, 0.0799136f,
+        //             0.638085f,   0.0396763f,  0.13647f,
+        //             0.219305f,   0.392154f,    5.15621f,
+        //             -0.025052f,   0.0124259f,   0.00445469f,
+        //             0.486676f,   0.14202f,    -2.87769f,
+        //             -1.0872f,    -1.73855f,     0.226202f
+        //         }},
+        //         {{
+        //             -0.00202984f, -0.000422459f, 0.0127556f,
+        //             -0.000639233f, 0.943233f, 0.332124f, 0.00226928f,
+        //             0.00275373f, -0.000731349f, -0.00316501f,
+        //             -0.00767754f, -0.00261773f, 0.010203f,
+        //             0.638155f,   0.0397404f,   0.136414f,
+        //             1.27219f,   -0.261368f,    6.17333f,
+        //             0.0408175f,  0.0907637f,  -0.00845671f,
+        //             0.8045f,     0.283839f,   -2.43659f,
+        //             -1.00014f,   -1.44077f,    -0.0127086f
+        //         }},
+        //         {{
+        //             -0.00170988f, -0.00026533f, 0.0129406f,
+        //             -0.000621466f, 0.943648f, 0.330944f, 0.00217249f,
+        //             0.00457764f, 0.00636622f, -0.00131428f,
+        //             0.00434273f, 0.00624766f, -0.0358968f,
+        //             0.638475f,   0.0398976f,  0.136599f,
+        //             1.38619f,    0.812975f,   3.70114f,
+        //             -0.034688f,   0.0633193f,  0.00123114f,
+        //             0.757081f,   0.467729f,  -1.98892f,
+        //             -0.746301f,  -1.15563f,   -0.173511f
+        //         }}
+        //     }};      
 
-            const std::array<std::array<float, 6>, 10> py_action_ref = {{
-                {{ -5.73927f, -4.85723f, -11.1435f,  4.88441f, -3.90469f, -1.27239f }},
-                {{  0.851601f, -2.6602f,  -9.79666f, -1.77479f, -4.36845f,  0.0947218f }},
-                {{  2.30801f,  -0.466343f,-8.16888f, -4.40031f, -5.82761f,  1.34219f }},
-                {{  2.97753f,   1.20996f, -7.36609f, -5.39921f, -6.21743f,  1.39542f }},
-                {{  0.855937f, -0.3143f,  -0.540019f,-2.24392f, -0.0127724f, 0.647707f }},
-                {{  4.0117f,    1.2125f,   0.141655f,-1.44323f, -0.0713745f,-0.919321f }},
-                {{ -2.84814f,   1.3808f,  -1.65487f, 1.02258f, -0.60213f,   0.427979f }},
-                {{  2.0758f,    0.851115f,-0.672206f,-0.651879f,-0.249624f,-0.968351f }},
-                {{  0.567406f,  1.20329f, -0.198211f, 0.269049f,-0.0150624f,-0.816721f }},
-                {{  0.41514f,   0.655045f,-1.42871f,  1.85815f, -0.471627f,-1.06583f }}
-            }};
+        //     const std::array<std::array<float, 6>, 10> py_action_ref = {{
+        //         {{ -5.73927f, -4.85723f, -11.1435f,  4.88441f, -3.90469f, -1.27239f }},
+        //         {{  0.851601f, -2.6602f,  -9.79666f, -1.77479f, -4.36845f,  0.0947218f }},
+        //         {{  2.30801f,  -0.466343f,-8.16888f, -4.40031f, -5.82761f,  1.34219f }},
+        //         {{  2.97753f,   1.20996f, -7.36609f, -5.39921f, -6.21743f,  1.39542f }},
+        //         {{  0.855937f, -0.3143f,  -0.540019f,-2.24392f, -0.0127724f, 0.647707f }},
+        //         {{  4.0117f,    1.2125f,   0.141655f,-1.44323f, -0.0713745f,-0.919321f }},
+        //         {{ -2.84814f,   1.3808f,  -1.65487f, 1.02258f, -0.60213f,   0.427979f }},
+        //         {{  2.0758f,    0.851115f,-0.672206f,-0.651879f,-0.249624f,-0.968351f }},
+        //         {{  0.567406f,  1.20329f, -0.198211f, 0.269049f,-0.0150624f,-0.816721f }},
+        //         {{  0.41514f,   0.655045f,-1.42871f,  1.85815f, -0.471627f,-1.06583f }}
+        //     }};
 
 
 
-            // sanity check
-            if (idx != 28) {
-              RCLCPP_ERROR(get_node()->get_logger(), "rl_obs_ fill error: idx=%d (expect 28)", idx);
-            }
+        //     // sanity check
+        //     if (idx != 28) {
+        //       RCLCPP_ERROR(get_node()->get_logger(), "rl_obs_ fill error: idx=%d (expect 28)", idx);
+        //     }
 
-            bool obs_bad = false;
-            for (size_t i = 0; i < rl_obs_.size(); ++i) {
-              if (!std::isfinite(rl_obs_[i])) {
-                std::cout << "Invalid rl_obs_ at " << i << ": " << rl_obs_[i] << std::endl;
-                obs_bad = true;
-              }
-            }
+        //     bool obs_bad = false;
+        //     for (size_t i = 0; i < rl_obs_.size(); ++i) {
+        //       if (!std::isfinite(rl_obs_[i])) {
+        //         std::cout << "Invalid rl_obs_ at " << i << ": " << rl_obs_[i] << std::endl;
+        //         obs_bad = true;
+        //       }
+        //     }
 
-            // --------------------------
-            // 6) 推理
-            // --------------------------
-            if (obs_bad) {
-              std::cout << "Skip inference because rl_obs_ contains invalid values." << std::endl;
-            } 
-            else 
-            {
+        //     // --------------------------
+        //     // 6) 推理
+        //     // --------------------------
+        //     if (obs_bad) {
+        //       std::cout << "Skip inference because rl_obs_ contains invalid values." << std::endl;
+        //     } 
+        //     else 
+        //     {
             
-              auto action_rl = policy_->infer(rl_obs_);
+        //       auto action_rl = policy_->infer(rl_obs_);
               
-              // if(elapsed_time_ <5*rl_dt_)
-              // {
-              //   // for (int t = 0; t < 10; ++t) {
-              //   //   auto action_test = policy_->infer(rl_obs_);
-              //   //   std::cout << "test " << t << ": ";
-              //   //   for (int k = 0; k < 6; ++k) {
-              //   //     std::cout << action_test[k] << " ";
-              //   //   }
-              //   //   std::cout << std::endl;
-              //   // }
-              //   std::cout << "raw action: ";
-              //   for (int k = 0; k < 6; ++k) {
-              //     std::cout << action_rl[k] << " ";
-              //   }
-              //   std::cout << std::endl;
+        //       // if(elapsed_time_ <5*rl_dt_)
+        //       // {
+        //       //   // for (int t = 0; t < 10; ++t) {
+        //       //   //   auto action_test = policy_->infer(rl_obs_);
+        //       //   //   std::cout << "test " << t << ": ";
+        //       //   //   for (int k = 0; k < 6; ++k) {
+        //       //   //     std::cout << action_test[k] << " ";
+        //       //   //   }
+        //       //   //   std::cout << std::endl;
+        //       //   // }
+        //       //   std::cout << "raw action: ";
+        //       //   for (int k = 0; k < 6; ++k) {
+        //       //     std::cout << action_rl[k] << " ";
+        //       //   }
+        //       //   std::cout << std::endl;
 
-              //   std::cout << "tanh action: ";
-              //   for (int k = 0; k < 6; ++k) {
-              //     std::cout << std::tanh(action_rl[k]) << " ";
-              //   }
-              //   std::cout << std::endl;
-              // }
+        //       //   std::cout << "tanh action: ";
+        //       //   for (int k = 0; k < 6; ++k) {
+        //       //     std::cout << std::tanh(action_rl[k]) << " ";
+        //       //   }
+        //       //   std::cout << std::endl;
+        //       // }
 
-              if(rt_infer_count<=1)
-              {
-                std::cout << "rt_infer_count"<<rt_infer_count<<std::endl;
-                std::cout << "rl_obs_ from the c++, check if they align with the python = [";
-                for (size_t i = 0; i < 28; ++i) {
-                    std::cout << rl_obs_[i];
-                    if (i + 1 < 28) {
-                        std::cout << ", ";
-                    }
-                }
-                std::cout << "]" << std::endl;
-
-
-                for (size_t t = 0; t < rl_obs_debug_seq.size(); ++t) {
-                  rl_obs_ = rl_obs_debug_seq[t];
-
-                  auto action_rlx = policy_->infer(rl_obs_);
-
-                  std::cout << "=== test " << t << " ===" << std::endl;
-
-                  std::cout << "obs: ";
-                  for (int i = 0; i < 28; ++i) {
-                    std::cout << rl_obs_[i] << " ";
-                  }
-                  std::cout << std::endl;
-
-                  std::cout << "onnx raw action: ";
-                  for (int k = 0; k < 6; ++k) {
-                    std::cout << action_rlx[k] << " ";
-                  }
-                  std::cout << std::endl;
-
-                  std::cout << "python ref raw action: ";
-                  for (int k = 0; k < 6; ++k) {
-                    std::cout << py_action_ref[t][k] << " ";
-                  }
-                  std::cout << std::endl;
-
-                  std::cout << "abs diff: ";
-                  for (int k = 0; k < 6; ++k) {
-                    std::cout << std::abs(action_rlx[k] - py_action_ref[t][k]) << " ";
-                  }
-                  std::cout << std::endl;
-                }
-              }
+        //       if(rt_infer_count<=1)
+        //       {
+        //         std::cout << "rt_infer_count"<<rt_infer_count<<std::endl;
+        //         std::cout << "rl_obs_ from the c++, check if they align with the python = [";
+        //         for (size_t i = 0; i < 28; ++i) {
+        //             std::cout << rl_obs_[i];
+        //             if (i + 1 < 28) {
+        //                 std::cout << ", ";
+        //             }
+        //         }
+        //         std::cout << "]" << std::endl;
 
 
+        //         for (size_t t = 0; t < rl_obs_debug_seq.size(); ++t) {
+        //           rl_obs_ = rl_obs_debug_seq[t];
 
-              for (int k = 0; k < 6; ++k) {
-                action_rl_bg_[k] = action_rl[k];
-              }
-              action_rl_bg_valid_ = true;
+        //           auto action_rlx = policy_->infer(rl_obs_);
+
+        //           std::cout << "=== test " << t << " ===" << std::endl;
+
+        //           std::cout << "obs: ";
+        //           for (int i = 0; i < 28; ++i) {
+        //             std::cout << rl_obs_[i] << " ";
+        //           }
+        //           std::cout << std::endl;
+
+        //           std::cout << "onnx raw action: ";
+        //           for (int k = 0; k < 6; ++k) {
+        //             std::cout << action_rlx[k] << " ";
+        //           }
+        //           std::cout << std::endl;
+
+        //           std::cout << "python ref raw action: ";
+        //           for (int k = 0; k < 6; ++k) {
+        //             std::cout << py_action_ref[t][k] << " ";
+        //           }
+        //           std::cout << std::endl;
+
+        //           std::cout << "abs diff: ";
+        //           for (int k = 0; k < 6; ++k) {
+        //             std::cout << std::abs(action_rlx[k] - py_action_ref[t][k]) << " ";
+        //           }
+        //           std::cout << std::endl;
+        //         }
+        //       }
 
 
 
-            }
+        //       for (int k = 0; k < 6; ++k) {
+        //         action_rl_bg_[k] = action_rl[k];
+        //       }
+        //       action_rl_bg_valid_ = true;
 
-            // post-process 
-            // 1. 写输入
-            for (int k = 0; k < 6; ++k) 
-            {
-              if(k!=2)
-              {
-                rl_action_processor.policy_action[k] = action_rl_bg_[k];
-              }
-              else
-              {
-                rl_action_processor.policy_action[k] = 0.06*action_rl_bg_[k];//// for ppo_eal 0.04: sometimes can not explore; better 0.06 ////   for ppo_only: 0.06
-              }
+
+
+        //     }
+
+        //     // post-process 
+        //     // 1. 写输入
+        //     for (int k = 0; k < 6; ++k) 
+        //     {
+        //       if(k!=2)
+        //       {
+        //         rl_action_processor.policy_action[k] = action_rl_bg_[k];
+        //       }
+        //       else
+        //       {
+        //         rl_action_processor.policy_action[k] = 0.06*action_rl_bg_[k];//// for ppo_eal 0.04: sometimes can not explore; better 0.06 ////   for ppo_only: 0.06
+        //       }
               
 
-              rl_action_processor.prev_used_action[k] = rl_prev_action_[k];
-            }
+        //       rl_action_processor.prev_used_action[k] = rl_prev_action_[k];
+        //     }
             
-            rl_action_processor.fingertip_pos = fingertip_pos;
-            /// check this 
-            rl_action_processor.fingertip_quat.w() = fingertip_quat[0];
-            rl_action_processor.fingertip_quat.x() = fingertip_quat[1];
-            rl_action_processor.fingertip_quat.y() = fingertip_quat[2];
-            rl_action_processor.fingertip_quat.z() = fingertip_quat[3];
+        //     rl_action_processor.fingertip_pos = fingertip_pos;
+        //     /// check this 
+        //     rl_action_processor.fingertip_quat.w() = fingertip_quat[0];
+        //     rl_action_processor.fingertip_quat.x() = fingertip_quat[1];
+        //     rl_action_processor.fingertip_quat.y() = fingertip_quat[2];
+        //     rl_action_processor.fingertip_quat.z() = fingertip_quat[3];
 
 
-            rl_action_processor.fixed_pos_action_frame = target_p_gear_fixed_;
+        //     rl_action_processor.fixed_pos_action_frame = target_p_gear_fixed_;
 
-            // 2. 处理
-            rl_action_processor.process();
+        //     // 2. 处理
+        //     rl_action_processor.process();
 
-            // 3. 直接读输出
-            rl_ctrl_target_fingertip_midpoint_pos = rl_action_processor.ctrl_target_fingertip_midpoint_pos;
-            rl_ctrl_target_fingertip_midpoint_quat = rl_action_processor.ctrl_target_fingertip_midpoint_quat;
-            rl_ctrl_target_gripper_ = rl_action_processor.ctrl_target_gripper_dof_pos; ///// gripper angle, always zeros;
+        //     // 3. 直接读输出
+        //     rl_ctrl_target_fingertip_midpoint_pos = rl_action_processor.ctrl_target_fingertip_midpoint_pos;
+        //     rl_ctrl_target_fingertip_midpoint_quat = rl_action_processor.ctrl_target_fingertip_midpoint_quat;
+        //     rl_ctrl_target_gripper_ = rl_action_processor.ctrl_target_gripper_dof_pos; ///// gripper angle, always zeros;
 
-            target_p_3_ = rl_ctrl_target_fingertip_midpoint_pos;
-            target_q_xyzw_3_[0] = rl_ctrl_target_fingertip_midpoint_quat.x();
-            target_q_xyzw_3_[1] = rl_ctrl_target_fingertip_midpoint_quat.y();
-            target_q_xyzw_3_[2] = rl_ctrl_target_fingertip_midpoint_quat.z();
-            target_q_xyzw_3_[3] = rl_ctrl_target_fingertip_midpoint_quat.w();
+        //     target_p_3_ = rl_ctrl_target_fingertip_midpoint_pos;
+        //     target_q_xyzw_3_[0] = rl_ctrl_target_fingertip_midpoint_quat.x();
+        //     target_q_xyzw_3_[1] = rl_ctrl_target_fingertip_midpoint_quat.y();
+        //     target_q_xyzw_3_[2] = rl_ctrl_target_fingertip_midpoint_quat.z();
+        //     target_q_xyzw_3_[3] = rl_ctrl_target_fingertip_midpoint_quat.w();
 
-            rl_ctrl_target_fingertip_midpoint_pos_bg_ = rl_ctrl_target_fingertip_midpoint_pos;
-            rl_ctrl_target_fingertip_midpoint_quat_bg_ = rl_ctrl_target_fingertip_midpoint_quat;
+        //     rl_ctrl_target_fingertip_midpoint_pos_bg_ = rl_ctrl_target_fingertip_midpoint_pos;
+        //     rl_ctrl_target_fingertip_midpoint_quat_bg_ = rl_ctrl_target_fingertip_midpoint_quat;
 
 
-            // 4. 更新缓存
-            for (int k = 0; k < 6; ++k) 
-            {          
-              rl_prev_action_[k] = rl_action_processor.used_action[k];  
-            }        
+        //     // 4. 更新缓存
+        //     for (int k = 0; k < 6; ++k) 
+        //     {          
+        //       rl_prev_action_[k] = rl_action_processor.used_action[k];  
+        //     }        
             
 
-            rl_target_valid_ = true;
+        //     rl_target_valid_ = true;
       
 
-            if (kin_initialized_ && rl_target_valid_ && (!rl_test_)) {
+        //     if (kin_initialized_ && rl_target_valid_ && (!rl_test_)) {
 
-              rl_ik_request_count_ += 1;
-              /// target 3: for plugin
-              target = make_target_se3(3);
+        //       rl_ik_request_count_ += 1;
+        //       /// target 3: for plugin
+        //       target = make_target_se3(3);
             
 
-              q_init_arm = q_.head<7>();
-              q_sol = q_init_arm;
-              double final_err2 = -1.0;
-              bool ok2 = pino_.ik(target, q_init_arm, q_sol, ik_opt_, &final_err2);
+        //       q_init_arm = q_.head<7>();
+        //       q_sol = q_init_arm;
+        //       double final_err2 = -1.0;
+        //       bool ok2 = pino_.ik(target, q_init_arm, q_sol, ik_opt_, &final_err2);
 
-              if (!ok2) {
-                rl_ik_fail_count_ += 1;
-                RCLCPP_WARN(get_node()->get_logger(),
-                            "RL Pinocchio IK failed (final_err=%.6f); keep configured q_goal.", final_err2);
+        //       if (!ok2) {
+        //         rl_ik_fail_count_ += 1;
+        //         RCLCPP_WARN(get_node()->get_logger(),
+        //                     "RL Pinocchio IK failed (final_err=%.6f); keep configured q_goal.", final_err2);
 
-              } else {
-                // only overwrite first 7 arm joints; keep 8th (gripper) unchanged
-                q_goal_3_.head<7>() = q_sol;
-                rl_ik_success_count_ += 1;
-                // RCLCPP_INFO(get_node()->get_logger(), "RL Pinocchio IK success. Using IK solution as q_goal (arm only).");
-              }
-            }
+        //       } else {
+        //         // only overwrite first 7 arm joints; keep 8th (gripper) unchanged
+        //         q_goal_3_.head<7>() = q_sol;
+        //         rl_ik_success_count_ += 1;
+        //         // RCLCPP_INFO(get_node()->get_logger(), "RL Pinocchio IK success. Using IK solution as q_goal (arm only).");
+        //       }
+        //     }
 
-            // rl_ik_target_pos_ = rl_ctrl_target_fingertip_midpoint_pos;
-            // rl_ik_target_quat_ = rl_ctrl_target_fingertip_midpoint_quat;
-            // rl_ik_q_init_ = q_.head<7>();
+        //     // rl_ik_target_pos_ = rl_ctrl_target_fingertip_midpoint_pos;
+        //     // rl_ik_target_quat_ = rl_ctrl_target_fingertip_midpoint_quat;
+        //     // rl_ik_q_init_ = q_.head<7>();
 
-            // rl_ik_request_.store(true, std::memory_order_release);
-            // rl_ik_request_count_ += 1;
+        //     // rl_ik_request_.store(true, std::memory_order_release);
+        //     // rl_ik_request_count_ += 1;
 
-            // if (rl_ik_solution_ready_.load(std::memory_order_acquire)) {
-            //   rl_ik_solution_ready_.store(false, std::memory_order_release);
-            //   q_goal_3_.head<7>() = rl_ik_q_sol_;
-            // }
+        //     // if (rl_ik_solution_ready_.load(std::memory_order_acquire)) {
+        //     //   rl_ik_solution_ready_.store(false, std::memory_order_release);
+        //     //   q_goal_3_.head<7>() = rl_ik_q_sol_;
+        //     // }
 
-            q_interp_start_ = q_des_;
+        //     q_interp_start_ = q_des_;
 
-          }
+        //   }
 
         
           
 
  
 
-          if(elapsed_time_ >= rl_duration_)
-          {
-            rl_finished_ = true;
+        //   if(elapsed_time_ >= rl_duration_)
+        //   {
+        //     rl_finished_ = true;
 
-            if (!rl_finish_latched_.exchange(true, std::memory_order_relaxed)) {
-              save_requested_.store(true, std::memory_order_release);
-            }
+        //     if (!rl_finish_latched_.exchange(true, std::memory_order_relaxed)) {
+        //       save_requested_.store(true, std::memory_order_release);
+        //     }
 
-            std::cout<<"!!! rl_policy_finished !!!"<<std::endl;
-          }
-        }
-        else 
-        {
-          // When finished: keep previous behavior
-          if (hold_position_) {
-            q_des_ = q_goal_3_;
-          } else {
-            q_des_ = q_;
-          }
-        }
-        break;        
+        //     std::cout<<"!!! rl_policy_finished !!!"<<std::endl;
+        //   }
+        // }
+        // else 
+        // {
+        //   // When finished: keep previous behavior
+        //   if (hold_position_) {
+        //     q_des_ = q_goal_3_;
+        //   } else {
+        //     q_des_ = q_;
+        //   }
+        // }
+        // break;        
       }   
       default: 
       {
@@ -2519,6 +3010,8 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
     if (kin_initialized_) {
       ee_ref = pino_.fk(q_ref_arm);
       ee6_ref_ = se3ToXyzRpy(ee_ref);
+
+      fingertip_pos_fk_dbg_ = ee_ref.translation();
     }
     else
     {
@@ -3417,6 +3910,196 @@ std::string MoveCatersianImpWithGripper::make_log_snapshot_file_path(int snapsho
       << "_RL_log.txt";
 
   return oss.str();
+}
+
+// =====================================================================================================================================================
+// Additional functions to compute the probe points and clearance
+void MoveCatersianImpWithGripper::initProbeFrameIds()
+{
+  probe_frame_ids_ready_ = false;
+
+  if (!kin_initialized_ || !pino_.isInitialized())
+  {
+    return;
+  }
+
+  for (size_t i = 0; i < probe_frame_names_.size(); ++i)
+  {
+    probe_frame_ids_[i] = pino_.frameIdByName(probe_frame_names_[i]);
+
+    if (probe_frame_ids_[i] == pinocchio::FrameIndex(-1))
+    {
+      RCLCPP_ERROR(
+        get_node()->get_logger(),
+        "Probe frame '%s' not found in Pinocchio model.",
+        probe_frame_names_[i].c_str());
+
+      probe_frame_ids_ready_ = false;
+      return;
+    }
+
+    RCLCPP_INFO(
+      get_node()->get_logger(),
+      "Probe frame '%s' id=%lu",
+      probe_frame_names_[i].c_str(),
+      static_cast<unsigned long>(probe_frame_ids_[i]));
+  }
+
+  probe_frame_ids_ready_ = true;
+}
+
+double MoveCatersianImpWithGripper::computeCylinderClearance(
+  const Eigen::Vector3d& p,
+  const Eigen::Vector3d& obstacle_pos,
+  double obstacle_radius,
+  double obstacle_height,
+  double link_radius) const
+{
+  const double cyl_radius = obstacle_radius;
+  const double cyl_half_h = 0.5 * obstacle_height;
+
+  const double dx = p.x() - obstacle_pos.x();
+  const double dy = p.y() - obstacle_pos.y();
+
+  const double radial_dist = std::sqrt(dx * dx + dy * dy + 1e-8);
+
+  // Signed radial distance from infinite cylinder surface
+  const double radial_out = radial_dist - cyl_radius;
+
+  // Vertical distance from finite cylinder slab
+  const double dz = std::abs(p.z() - obstacle_pos.z()) - cyl_half_h;
+
+  const double outside_radial = std::max(radial_out, 0.0);
+  const double outside_vertical = std::max(dz, 0.0);
+
+  const double outside_dist =
+      std::sqrt(
+          outside_radial * outside_radial +
+          outside_vertical * outside_vertical +
+          1e-8);
+
+  const double inside_dist =
+      std::min(std::max(radial_out, dz), 0.0);
+
+  const double sdf_cylinder = outside_dist + inside_dist;
+
+  const double clearance = sdf_cylinder - link_radius;
+
+  return clearance;
+}
+
+void MoveCatersianImpWithGripper::updateClearObsFromPinocchio()
+{
+  if (!kin_initialized_ || !probe_frame_ids_ready_)
+  {
+    clear_obs_.fill(0.0f);
+    return;
+  }
+
+  std::array<pinocchio::SE3, 4> T;
+
+  const bool ok = pino_.FramePoses4Rt(
+      q_.head<7>(),
+      probe_frame_ids_,
+      T);
+
+  if (!ok)
+  {
+    clear_obs_.fill(0.0f);
+    return;
+  }
+
+  const Eigen::Vector3d p2 = T[0].translation();
+  const Eigen::Vector3d p4 = T[1].translation();
+  const Eigen::Vector3d p6 = T[2].translation();
+  const Eigen::Vector3d p7 = T[3].translation();
+
+  // pg = robot_grasp_pos in IsaacLab.
+  // Qui usiamo il fingertip/midpoint già calcolato nel controller.
+  const Eigen::Vector3d pg = fingertip_pos;
+
+  const Eigen::Quaterniond hand_quat(T[3].rotation());
+
+  auto lerp = [](const Eigen::Vector3d& a,
+                 const Eigen::Vector3d& b,
+                 double t) -> Eigen::Vector3d {
+    return (1.0 - t) * a + t * b;
+  };
+
+  int k = 0;
+
+  // anchors = [p2, p4, p6, p7, pg]
+  probe_points_w_[k++] = p2;
+  probe_points_w_[k++] = p4;
+  probe_points_w_[k++] = p6;
+  probe_points_w_[k++] = p7;
+  probe_points_w_[k++] = pg;
+
+  // seg_24 = lerp(p2, p4, [0.25, 0.5, 0.75])
+  probe_points_w_[k++] = lerp(p2, p4, 0.25);
+  probe_points_w_[k++] = lerp(p2, p4, 0.50);
+  probe_points_w_[k++] = lerp(p2, p4, 0.75);
+
+  // seg_46 = lerp(p4, p6, [0.25, 0.5, 0.75])
+  probe_points_w_[k++] = lerp(p4, p6, 0.25);
+  probe_points_w_[k++] = lerp(p4, p6, 0.50);
+  probe_points_w_[k++] = lerp(p4, p6, 0.75);
+
+  // seg_67 = lerp(p6, p7, [0.33, 0.66])
+  probe_points_w_[k++] = lerp(p6, p7, 0.33);
+  probe_points_w_[k++] = lerp(p6, p7, 0.66);
+
+  // hand offsets local, same as IsaacLab
+  const double sx = 0.04;
+  const double sy = 0.04;
+  const double sz = 0.03;
+  const double tip = 0.22;
+
+  const std::array<Eigen::Vector3d, 7> hand_offsets_local = {{
+    Eigen::Vector3d(+sx, 0.0, 0.0),
+    Eigen::Vector3d(-sx, 0.0, 0.0),
+    Eigen::Vector3d(0.0, +sy, 0.0),
+    Eigen::Vector3d(0.0, -sy, 0.0),
+    Eigen::Vector3d(0.0, 0.0, +sz),
+    Eigen::Vector3d(0.0, 0.0, -sz),
+    Eigen::Vector3d(0.0, 0.0, +tip),
+  }};
+
+  const Eigen::Matrix3d R_hand = hand_quat.normalized().toRotationMatrix();
+
+  for (const auto& off_local : hand_offsets_local)
+  {
+    probe_points_w_[k++] = p7 + R_hand * off_local;
+  }
+
+  // Safety check: should be exactly 20
+  if (k != 20)
+  {
+    clear_obs_.fill(0.0f);
+    return;
+  }
+
+  constexpr double scale = 0.2;
+
+  for (int i = 0; i < 20; ++i)
+  {
+    double clearance = computeCylinderClearance(
+        probe_points_w_[i],
+        obstacle_pos_w_,
+        obstacle_radius_,
+        obstacle_height_,
+        link_radius_);
+
+    if (!std::isfinite(clearance))
+    {
+      clearance = 0.0;
+    }
+
+    const double obs = std::tanh(clearance / scale);
+
+    clear_obs_[i] =
+        static_cast<float>(std::clamp(obs, -5.0, 5.0));
+  }
 }
 
 

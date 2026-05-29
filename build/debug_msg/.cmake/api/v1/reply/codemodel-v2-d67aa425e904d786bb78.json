@@ -1,0 +1,233 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-ec224f824401e0a076e9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17
+					]
+				},
+				{
+					"build" : "debug_msg__py",
+					"jsonFile" : "directory-debug_msg__py-Release-7a5b78eb9b089e7b2c01.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/jiataoding/franco_ros2_franka_ws/src/build/debug_msg/debug_msg__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "debug_msg",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_debug_msg_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_debug_msg_egg-Release-c4660faf7e6ec437f19e.json",
+					"name" : "ament_cmake_python_build_debug_msg_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_symlink_debug_msg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_symlink_debug_msg-Release-b4c9d083573329a292a9.json",
+					"name" : "ament_cmake_python_symlink_debug_msg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg-Release-39f3e78775f74940d82c.json",
+					"name" : "debug_msg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__cpp-Release-14ba6f4cc565e3c33d1d.json",
+					"name" : "debug_msg__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "debug_msg__py::@48c286395aea37dd72db",
+					"jsonFile" : "target-debug_msg__py-Release-ca0d26895c6fe126bf13.json",
+					"name" : "debug_msg__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_generator_c-Release-9a8dedc32ddbd5a08113.json",
+					"name" : "debug_msg__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_generator_py-Release-e4350a5570a96496e35e.json",
+					"name" : "debug_msg__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_typesupport_c-Release-19f5ac3379704bc1867b.json",
+					"name" : "debug_msg__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_typesupport_c__pyext-Release-c6fb318575c57e090646.json",
+					"name" : "debug_msg__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_typesupport_cpp-Release-256fa4188b7e77479f44.json",
+					"name" : "debug_msg__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_typesupport_fastrtps_c-Release-a26c41a1348315ba8a99.json",
+					"name" : "debug_msg__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_typesupport_fastrtps_c__pyext-Release-cdcd60da716b49eda1d0.json",
+					"name" : "debug_msg__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_typesupport_fastrtps_cpp-Release-ec46f01a1dc11632cadf.json",
+					"name" : "debug_msg__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_typesupport_introspection_c-Release-d3c02e9b06df5b730e7c.json",
+					"name" : "debug_msg__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_typesupport_introspection_c__pyext-Release-b7ca6cfcb169641244c2.json",
+					"name" : "debug_msg__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg__rosidl_typesupport_introspection_cpp-Release-2e2d0fdb7428478dc978.json",
+					"name" : "debug_msg__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "debug_msg_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-debug_msg_uninstall-Release-aed92f55600e0f0c3640.json",
+					"name" : "debug_msg_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-83274116aba16bc6cb2b.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/jiataoding/franco_ros2_franka_ws/src/build/debug_msg",
+		"source" : "/home/jiataoding/franco_ros2_franka_ws/src/ros2_effort_controller/debug_msg"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

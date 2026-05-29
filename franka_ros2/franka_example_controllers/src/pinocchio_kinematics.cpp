@@ -519,4 +519,76 @@ bool PinocchioKinematics::ik(
   return ik(target, q_init, q_sol, opt, final_err);
 }
 
+// ======================================================================================================================================================
+// Additional functions to compute the probe points
+pinocchio::FrameIndex PinocchioKinematics::frameIdByName(
+  const std::string& frame_name) const
+{
+  ensureInitOrThrow("frameIdByName");
+
+  for (pinocchio::FrameIndex i = 0;
+       i < static_cast<pinocchio::FrameIndex>(model_.frames.size());
+       ++i)
+  {
+    if (model_.frames[i].name == frame_name)
+    {
+      return i;
+    }
+  }
+
+  return pinocchio::FrameIndex(-1);
+}
+
+bool PinocchioKinematics::FramePoseRt(
+  const Vector7d& q_arm,
+  pinocchio::FrameIndex frame_id,
+  pinocchio::SE3& out)
+{
+  ensureInitOrThrow("framePoseRt");
+
+  if (frame_id == pinocchio::FrameIndex(-1) ||
+      frame_id >= static_cast<pinocchio::FrameIndex>(model_.frames.size()))
+  {
+    return false;
+  }
+
+  fillQFullFromArmInPlace(q_arm, q_full_rt_);
+
+  pinocchio::forwardKinematics(model_, data_, q_full_rt_);
+  pinocchio::updateFramePlacements(model_, data_);
+
+  out = data_.oMf[frame_id];
+
+  return true;
+}
+
+bool PinocchioKinematics::FramePoses4Rt(
+  const Vector7d& q_arm,
+  const std::array<pinocchio::FrameIndex, 4>& frame_ids,
+  std::array<pinocchio::SE3, 4>& out)
+{
+  ensureInitOrThrow("framePoses4Rt");
+
+  for (const auto& id : frame_ids)
+  {
+    if (id == pinocchio::FrameIndex(-1) ||
+        id >= static_cast<pinocchio::FrameIndex>(model_.frames.size()))
+    {
+      return false;
+    }
+  }
+
+  fillQFullFromArmInPlace(q_arm, q_full_rt_);
+
+  pinocchio::forwardKinematics(model_, data_, q_full_rt_);
+  pinocchio::updateFramePlacements(model_, data_);
+
+  for (size_t i = 0; i < 4; ++i)
+  {
+    out[i] = data_.oMf[frame_ids[i]];
+  }
+
+  return true;
+}
+
 }  // namespace franka_example_controllers

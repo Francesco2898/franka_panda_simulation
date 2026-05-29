@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "debug_msg__py",
+		"source" : "/home/jiataoding/franco_ros2_franka_ws/src/build/debug_msg/debug_msg__py"
+	}
+}

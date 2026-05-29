@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/build/joint_impedance_controller/ament_cmake_core/joint_impedance_controllerConfig-version.cmake

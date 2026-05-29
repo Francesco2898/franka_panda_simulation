@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/jiataoding/franco_ros2_franka_ws/src/build/franka_robot_state_broadcaster/libfranka_robot_state_broadcaster.so" "TARGETS" "franka_robot_state_broadcaster" "DESTINATION" "lib")

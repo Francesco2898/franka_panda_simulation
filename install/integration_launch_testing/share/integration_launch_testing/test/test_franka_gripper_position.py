@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/integration_launch_testing/test/test_franka_gripper_position.py

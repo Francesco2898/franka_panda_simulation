@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/build/franka_ign_ros2_control/ament_cmake_core/franka_ign_ros2_controlConfig.cmake

@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/jiataoding/franco_ros2_franka_ws/src/build/joint_impedance_controller/libjoint_impedance_controller.so" "TARGETS" "joint_impedance_controller" "LIBRARY_DESTINATION" "lib" "ARCHIVE_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")

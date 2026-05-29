@@ -1,0 +1,28 @@
+[35m[1mConsolidate compiler generated dependencies of target joint_impedance_controller[0m
+[100%] Built target joint_impedance_controller
+-- Install configuration: "Release"
+-- Execute custom install script
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller//joint_impedance_controller_plugin.xml
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/include/joint_impedance_controller/joint_impedance_controller.h
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/lib/libjoint_impedance_controller.so
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/environment/library_path.sh
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/environment/library_path.dsv
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/ament_index/resource_index/package_run_dependencies/joint_impedance_controller
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/ament_index/resource_index/parent_prefix_path/joint_impedance_controller
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/environment/path.sh
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/environment/path.dsv
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/local_setup.bash
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/local_setup.sh
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/local_setup.zsh
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/local_setup.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/package.dsv
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/ament_index/resource_index/packages/joint_impedance_controller
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/ament_index/resource_index/controller_interface__pluginlib__plugin/joint_impedance_controller
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/cmake/joint_impedance_controllerConfig.cmake
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/cmake/joint_impedance_controllerConfig-version.cmake
+-- Up-to-date symlink: /home/jiataoding/franco_ros2_franka_ws/src/install/joint_impedance_controller/share/joint_impedance_controller/package.xml

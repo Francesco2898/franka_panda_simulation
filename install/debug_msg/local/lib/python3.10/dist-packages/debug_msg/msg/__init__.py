@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/build/debug_msg/rosidl_generator_py/debug_msg/msg/__init__.py

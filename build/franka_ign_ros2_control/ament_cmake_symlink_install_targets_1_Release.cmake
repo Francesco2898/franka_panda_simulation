@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/jiataoding/franco_ros2_franka_ws/src/build/franka_ign_ros2_control/libfranka_ign_ros2_control-system.so" "TARGETS" "franka_ign_ros2_control-system" "DESTINATION" "lib")

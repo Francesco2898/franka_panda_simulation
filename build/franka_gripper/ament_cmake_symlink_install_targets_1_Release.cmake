@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/jiataoding/franco_ros2_franka_ws/src/build/franka_gripper/libgripper_server.so" "TARGETS" "gripper_server" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")

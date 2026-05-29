@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/build/franka_msgs/rosidl_generator_py/franka_msgs/srv/_set_cartesian_stiffness_s.c

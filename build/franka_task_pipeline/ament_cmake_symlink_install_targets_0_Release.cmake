@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/jiataoding/franco_ros2_franka_ws/src/build/franka_task_pipeline/keyboard_cmd_node" "TARGETS" "keyboard_cmd_node" "DESTINATION" "lib/franka_task_pipeline")

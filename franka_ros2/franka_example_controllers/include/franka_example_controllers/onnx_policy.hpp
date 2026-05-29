@@ -11,8 +11,10 @@ namespace franka_example_controllers {
 
 class OnnxPolicy {
 public:
-  static constexpr int OBS_DIM = 28;
-  static constexpr int ACT_DIM = 6;
+  // static constexpr int OBS_DIM = 28;
+  // static constexpr int ACT_DIM = 6;
+  static constexpr int OBS_DIM = 46;
+  static constexpr int ACT_DIM = 9;
 
   explicit OnnxPolicy(const std::string& onnx_path,
                       int intra_op_threads = 1,

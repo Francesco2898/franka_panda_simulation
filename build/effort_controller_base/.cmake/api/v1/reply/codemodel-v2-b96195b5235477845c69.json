@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-668272b577d9b4c45536.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "effort_controller_base",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "effort_controller_base::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-effort_controller_base-Release-e5ae8e00a9bc3c5a7121.json",
+					"name" : "effort_controller_base",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "effort_controller_base_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-effort_controller_base_uninstall-Release-bfc8dee37182ba27b013.json",
+					"name" : "effort_controller_base_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-7cddbe460c5c3d79730b.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/jiataoding/franco_ros2_franka_ws/src/build/effort_controller_base",
+		"source" : "/home/jiataoding/franco_ros2_franka_ws/src/ros2_effort_controller/effort_controller_base"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

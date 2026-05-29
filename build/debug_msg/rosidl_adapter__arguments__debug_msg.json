@@ -1,0 +1,6 @@
+{
+  "package_name": "debug_msg",
+  "non_idl_tuples": [
+    "/home/jiataoding/franco_ros2_franka_ws/src/ros2_effort_controller/debug_msg:msg/Debug.msg"
+  ]
+}

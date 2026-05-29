@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/build/debug_msg/rosidl_generator_c/debug_msg/msg/detail/debug__type_support.h

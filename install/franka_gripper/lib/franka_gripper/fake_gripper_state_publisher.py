@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_gripper/scripts/fake_gripper_state_publisher.py

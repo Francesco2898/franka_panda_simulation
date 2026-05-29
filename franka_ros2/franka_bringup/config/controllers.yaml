@@ -302,8 +302,8 @@
         # - fr3_finger_joint1   # <-- gripper joint
       
       warmup_seconds: 2.0
-      Catersian_imp: true ## Catersian impedance or joint pd?
-      osc_blend_alpha_gain: 0.8 ### from 0~1, 1 means use osc only
+      Catersian_imp: false ## Catersian impedance or joint pd?
+      osc_blend_alpha_gain: 0.0 ### from 0~1, 1 means use osc only (0.8 before)
 
       test_compensation: false
 
@@ -373,11 +373,12 @@
 
 
       ### RL grasping policy===== 
-      policy_name: "policy.onnx" ###ppo.onnx: ppo_eal;  policy_ppo_no_constraint_2999.onnx: ppo only (not working)
+      ###policy_name: "policy.onnx" ###ppo.onnx: ppo_eal;  policy_ppo_no_constraint_2999.onnx: ppo only (not working)
+      policy_name: "pick_place_policy.onnx"
                     ### retrain the ppo policy with defined target area: for generalization position 2-- large: [0.417, -0.004, 0.028]: not good                                                      
 
       #### target collect mode, send zero torque 
-      RL_target_collect: False ### True, only gravity compensation, we can drag the gripper to the target position, False: run the RL policy
+      RL_target_collect: true ### True, only gravity compensation, we can drag the gripper to the target position, False: run the RL policy
 
       RL_test: False ### True: test rl policy without sending the command to osc ###
       RL_duration: 20.0
@@ -399,3 +400,49 @@
       gripper.move.width: 0.04
       gripper.move.speed: 0.03
       gripper.move.action_name: /NS_1/franka_gripper/move
+
+
+      #############################################################################################################################################
+      target_position_plugin: [0.3452, 0.2232, 0.063]
+      target_orientation_xyzw_plugin: [0.0, 0.0, 0.0, 1.0]
+
+      pick_place.action_scale: 0.01
+      pick_place.dof_velocity_scale: 0.1
+      pick_place.r_in: 0.025
+      pick_place.finger_open_pos: 0.04
+      pick_place.finger_closed_pos: 0.0
+      pick_place.object_init_z: 0.0
+      pick_place.success_height: 0.005
+
+      pick_place.robot_dof_lower_limit:
+        - -2.8973
+        - -1.7628
+        - -2.8973
+        - -3.0718
+        - -2.8973
+        - -0.0175
+        - -2.8973
+        - 0.0
+        - 0.0
+
+      pick_place.robot_dof_upper_limit:
+        - 2.8973
+        - 1.7628
+        - 2.8973
+        - -0.0698
+        - 2.8973
+        - 3.7525
+        - 2.8973
+        - 0.04
+        - 0.04
+
+      pick_place.robot_dof_speed_scales:
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0
+        - 1.0 

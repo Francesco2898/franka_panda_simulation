@@ -1,0 +1,99 @@
+[0.024s] Invoking command in '/home/jiataoding/franco_ros2_franka_ws/src/build/franka_example_controllers': AMENT_PREFIX_PATH=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_msgs:/home/jiataoding/ros2_franka_ws/install/joint_impedance_controller:/home/jiataoding/ros2_franka_ws/install/integration_launch_testing:/home/jiataoding/ros2_franka_ws/install/idra_franka_launch:/home/jiataoding/ros2_franka_ws/install/gravity_compensation:/home/jiataoding/ros2_franka_ws/install/franka_task_pipeline:/home/jiataoding/ros2_franka_ws/install/franka_ros2:/home/jiataoding/ros2_franka_ws/install/franka_bringup:/home/jiataoding/ros2_franka_ws/install/franka_robot_state_broadcaster:/home/jiataoding/ros2_franka_ws/install/franka_example_controllers:/home/jiataoding/ros2_franka_ws/install/franka_semantic_components:/home/jiataoding/ros2_franka_ws/install/franka_gazebo_bringup:/home/jiataoding/ros2_franka_ws/install/franka_ign_ros2_control:/home/jiataoding/ros2_franka_ws/install/franka_fr3_moveit_config:/home/jiataoding/ros2_franka_ws/install/franka_hardware:/home/jiataoding/ros2_franka_ws/install/franka_gripper:/home/jiataoding/ros2_franka_ws/install/franka_msgs:/home/jiataoding/ros2_franka_ws/install/franka_description:/home/jiataoding/ros2_franka_ws/install/cartesian_impedance_controller:/opt/ros/humble:/home/jiataoding/ros2_franka_ws/install/effort_controller_base:/home/jiataoding/ros2_franka_ws/install/debug_msg:/home/jiataoding/franco_ros2_franka_ws/install/joint_impedance_controller:/home/jiataoding/franco_ros2_franka_ws/install/integration_launch_testing:/home/jiataoding/franco_ros2_franka_ws/install/idra_franka_launch:/home/jiataoding/franco_ros2_franka_ws/install/gravity_compensation:/home/jiataoding/franco_ros2_franka_ws/install/franka_task_pipeline:/home/jiataoding/franco_ros2_franka_ws/install/franka_ros2:/home/jiataoding/franco_ros2_franka_ws/install/franka_bringup:/home/jiataoding/franco_ros2_franka_ws/install/franka_robot_state_broadcaster:/home/jiataoding/franco_ros2_franka_ws/install/franka_example_controllers:/home/jiataoding/franco_ros2_franka_ws/install/franka_semantic_components:/home/jiataoding/franco_ros2_franka_ws/install/franka_gazebo_bringup:/home/jiataoding/franco_ros2_franka_ws/install/franka_ign_ros2_control:/home/jiataoding/franco_ros2_franka_ws/install/franka_fr3_moveit_config:/home/jiataoding/franco_ros2_franka_ws/install/franka_hardware:/home/jiataoding/franco_ros2_franka_ws/install/franka_gripper:/home/jiataoding/franco_ros2_franka_ws/install/franka_msgs:/home/jiataoding/franco_ros2_franka_ws/install/franka_description:/home/jiataoding/franco_ros2_franka_ws/install/cartesian_impedance_controller:/home/jiataoding/franco_ros2_franka_ws/install/effort_controller_base:/home/jiataoding/franco_ros2_franka_ws/install/debug_msg:/opt/openrobots LD_LIBRARY_PATH=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components/lib:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware/lib:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers -DCMAKE_BUILD_TYPE=Release -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_example_controllers
+[0.102s] -- The C compiler identification is GNU 11.4.0
+[0.170s] -- The CXX compiler identification is GNU 11.4.0
+[0.177s] -- Detecting C compiler ABI info
+[0.291s] -- Detecting C compiler ABI info - done
+[0.301s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.301s] -- Detecting C compile features
+[0.301s] -- Detecting C compile features - done
+[0.305s] -- Detecting CXX compiler ABI info
+[0.428s] -- Detecting CXX compiler ABI info - done
+[0.435s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.436s] -- Detecting CXX compile features
+[0.436s] -- Detecting CXX compile features - done
+[0.437s] -- CMAKE_BUILD_TYPE = Release
+[0.443s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.616s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.681s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.757s] -- Found ament_index_cpp: 1.4.0 (/opt/ros/humble/share/ament_index_cpp/cmake)
+[0.762s] -- Found controller_interface: 2.53.0 (/opt/ros/humble/share/controller_interface/cmake)
+[0.836s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.847s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.859s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.874s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.895s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.134s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.140s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.172s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.306s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.310s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.338s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.342s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.353s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.371s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.395s] -- Looking for pthread.h
+[1.513s] -- Looking for pthread.h - found
+[1.513s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.640s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.642s] -- Found Threads: TRUE  
+[1.700s] -- Found franka_msgs: 2.1.0 (/home/jiataoding/franco_ros2_franka_ws/src/install/franka_msgs/share/franka_msgs/cmake)
+[1.715s] -- Found franka_semantic_components: 2.1.0 (/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components/share/franka_semantic_components/cmake)
+[1.752s] -- Found moveit_core: 2.5.9 (/opt/ros/humble/share/moveit_core/cmake)
+[1.849s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found version "1.74.0") found components: chrono date_time filesystem iostreams program_options regex serialization system thread 
+[1.927s] -- Found parameter_traits: 0.6.0 (/opt/ros/humble/share/parameter_traits/cmake)
+[1.953s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found version "1.74.0") found components: filesystem 
+[2.117s] -- library: /usr/lib/x86_64-linux-gnu/libcurl.so
+[2.167s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[2.168s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[2.351s] -- pinocchio_default FOUND. pinocchio_default at /opt/openrobots/lib/libpinocchio_default.so
+[2.352s] -- pinocchio_parsers FOUND. pinocchio_parsers at /opt/openrobots/lib/libpinocchio_parsers.so
+[2.352s] -- pinocchio_casadi FOUND. pinocchio_casadi at /opt/openrobots/lib/libpinocchio_casadi.so
+[2.354s] -- boost_filesystem FOUND. boost_filesystem at /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+[2.354s] -- boost_serialization FOUND. boost_serialization at /usr/lib/x86_64-linux-gnu/libboost_serialization.so
+[2.355s] -- boost_system FOUND. boost_system at /usr/lib/x86_64-linux-gnu/libboost_system.so
+[2.375s] -- Found Boost: /usr/include (found version "1.74.0") found components: filesystem serialization system 
+[2.383s] [33mCMake Warning at /opt/openrobots/lib/cmake/hpp-fcl/hpp-fclConfig.cmake:3 (message):
+[2.383s]   Please update your CMake from 'hpp-fcl' to 'coal'
+[2.383s] Call Stack (most recent call first):
+[2.383s]   /usr/share/cmake-3.22/Modules/CMakeFindDependencyMacro.cmake:47 (find_package)
+[2.383s]   /opt/openrobots/lib/cmake/pinocchio/pinocchioConfig.cmake:161 (find_dependency)
+[2.383s]   CMakeLists.txt:31 (find_package)
+[2.383s] 
+[2.384s] [0m
+[2.391s] -- coal FOUND. coal at /opt/openrobots/lib/libcoal.so
+[2.405s] -- Found Boost: /usr/include (found version "1.74.0") found components: chrono thread date_time serialization filesystem atomic 
+[2.686s] -- Default C++ standard: 201703
+[2.686s] -- Minimal C++ standard upgraded to 11
+[2.686s] -- C++ standard sufficient: Minimal required 11, currently defined: 17
+[2.687s] -- C++ standard sufficient: Minimal required 11, currently defined: 17
+[2.693s] -- Found std_srvs: 4.9.0 (/opt/ros/humble/share/std_srvs/cmake)
+[2.719s] -- Found realtime_tools: 2.15.0 (/opt/ros/humble/share/realtime_tools/cmake)
+[2.753s] -- Found ament_cmake_clang_format: 0.12.14 (/opt/ros/humble/share/ament_cmake_clang_format/cmake)
+[2.757s] -- Found ament_cmake_copyright: 0.12.14 (/opt/ros/humble/share/ament_cmake_copyright/cmake)
+[2.762s] -- Found ament_cmake_cppcheck: 0.12.14 (/opt/ros/humble/share/ament_cmake_cppcheck/cmake)
+[2.766s] -- Found ament_cmake_flake8: 0.12.14 (/opt/ros/humble/share/ament_cmake_flake8/cmake)
+[2.770s] -- Found ament_cmake_lint_cmake: 0.12.14 (/opt/ros/humble/share/ament_cmake_lint_cmake/cmake)
+[2.774s] -- Found ament_cmake_pep257: 0.12.14 (/opt/ros/humble/share/ament_cmake_pep257/cmake)
+[2.780s] -- Found ament_cmake_xmllint: 0.12.14 (/opt/ros/humble/share/ament_cmake_xmllint/cmake)
+[2.785s] -- Found ament_cmake_gmock: 1.3.12 (/opt/ros/humble/share/ament_cmake_gmock/cmake)
+[2.789s] -- Found controller_manager: 2.53.0 (/opt/ros/humble/share/controller_manager/cmake)
+[2.810s] -- Found ros2_control_test_assets: 2.53.0 (/opt/ros/humble/share/ros2_control_test_assets/cmake)
+[2.819s] -- Found gmock sources under '/opt/ros/humble/src/gmock_vendor': C++ tests using 'Google Mock' will be built
+[2.829s] -- Found ament_cmake_gtest: 1.3.12 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[2.830s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[2.904s] -- Configuring done
+[2.911s] [31mCMake Error at CMakeLists.txt:62 (add_library):
+[2.911s]   Cannot find source file:
+[2.911s] 
+[2.911s]     src/move_catersian_impedance_with_gripper.cpp
+[2.911s] 
+[2.912s]   Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+[2.912s]   .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+[2.912s] 
+[2.912s] [0m
+[2.916s] [31mCMake Error at CMakeLists.txt:62 (add_library):
+[2.916s]   No SOURCES given to target: franka_example_controllers
+[2.916s] 
+[2.916s] [0m
+[2.916s] [0mCMake Generate step failed.  Build files cannot be regenerated correctly.[0m
+[2.929s] Invoked command in '/home/jiataoding/franco_ros2_franka_ws/src/build/franka_example_controllers' returned '1': AMENT_PREFIX_PATH=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_msgs:/home/jiataoding/ros2_franka_ws/install/joint_impedance_controller:/home/jiataoding/ros2_franka_ws/install/integration_launch_testing:/home/jiataoding/ros2_franka_ws/install/idra_franka_launch:/home/jiataoding/ros2_franka_ws/install/gravity_compensation:/home/jiataoding/ros2_franka_ws/install/franka_task_pipeline:/home/jiataoding/ros2_franka_ws/install/franka_ros2:/home/jiataoding/ros2_franka_ws/install/franka_bringup:/home/jiataoding/ros2_franka_ws/install/franka_robot_state_broadcaster:/home/jiataoding/ros2_franka_ws/install/franka_example_controllers:/home/jiataoding/ros2_franka_ws/install/franka_semantic_components:/home/jiataoding/ros2_franka_ws/install/franka_gazebo_bringup:/home/jiataoding/ros2_franka_ws/install/franka_ign_ros2_control:/home/jiataoding/ros2_franka_ws/install/franka_fr3_moveit_config:/home/jiataoding/ros2_franka_ws/install/franka_hardware:/home/jiataoding/ros2_franka_ws/install/franka_gripper:/home/jiataoding/ros2_franka_ws/install/franka_msgs:/home/jiataoding/ros2_franka_ws/install/franka_description:/home/jiataoding/ros2_franka_ws/install/cartesian_impedance_controller:/opt/ros/humble:/home/jiataoding/ros2_franka_ws/install/effort_controller_base:/home/jiataoding/ros2_franka_ws/install/debug_msg:/home/jiataoding/franco_ros2_franka_ws/install/joint_impedance_controller:/home/jiataoding/franco_ros2_franka_ws/install/integration_launch_testing:/home/jiataoding/franco_ros2_franka_ws/install/idra_franka_launch:/home/jiataoding/franco_ros2_franka_ws/install/gravity_compensation:/home/jiataoding/franco_ros2_franka_ws/install/franka_task_pipeline:/home/jiataoding/franco_ros2_franka_ws/install/franka_ros2:/home/jiataoding/franco_ros2_franka_ws/install/franka_bringup:/home/jiataoding/franco_ros2_franka_ws/install/franka_robot_state_broadcaster:/home/jiataoding/franco_ros2_franka_ws/install/franka_example_controllers:/home/jiataoding/franco_ros2_franka_ws/install/franka_semantic_components:/home/jiataoding/franco_ros2_franka_ws/install/franka_gazebo_bringup:/home/jiataoding/franco_ros2_franka_ws/install/franka_ign_ros2_control:/home/jiataoding/franco_ros2_franka_ws/install/franka_fr3_moveit_config:/home/jiataoding/franco_ros2_franka_ws/install/franka_hardware:/home/jiataoding/franco_ros2_franka_ws/install/franka_gripper:/home/jiataoding/franco_ros2_franka_ws/install/franka_msgs:/home/jiataoding/franco_ros2_franka_ws/install/franka_description:/home/jiataoding/franco_ros2_franka_ws/install/cartesian_impedance_controller:/home/jiataoding/franco_ros2_franka_ws/install/effort_controller_base:/home/jiataoding/franco_ros2_franka_ws/install/debug_msg:/opt/openrobots LD_LIBRARY_PATH=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components/lib:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware/lib:/home/jiataoding/franco_ros2_franka_ws/src/install/franka_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers -DCMAKE_BUILD_TYPE=Release -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/jiataoding/franco_ros2_franka_ws/src/install/franka_example_controllers

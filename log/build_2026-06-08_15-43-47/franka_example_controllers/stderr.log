@@ -1,0 +1,394 @@
+[33mCMake Warning at /opt/openrobots/lib/cmake/hpp-fcl/hpp-fclConfig.cmake:3 (message):
+  Please update your CMake from 'hpp-fcl' to 'coal'
+Call Stack (most recent call first):
+  /usr/share/cmake-3.22/Modules/CMakeFindDependencyMacro.cmake:47 (find_package)
+  /opt/openrobots/lib/cmake/pinocchio/pinocchioConfig.cmake:161 (find_dependency)
+  CMakeLists.txt:31 (find_package)
+
+[0m
+In file included from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components/include/franka_semantic_components/franka_robot_model.hpp:23[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/model_example_controller.hpp:22[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/model_example_controller.cpp:15[m[K:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware/include/franka_hardware/model.hpp:[m[K In member function ‘[01m[Kstd::array<double, 7> franka_hardware::Model::coriolis(const std::array<double, 7>&, const std::array<double, 7>&, const std::array<double, 9>&, double, const std::array<double, 3>&) const[m[K’:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware/include/franka_hardware/model.hpp:141:28:[m[K [01;35m[Kwarning: [m[K‘[01m[Kstd::array<double, 7> franka::Model::coriolis(const std::array<double, 7>&, const std::array<double, 7>&, const std::array<double, 9>&, double, const std::array<double, 3>&) const[m[K’ is deprecated: Use coriolis(q, dq, i_total, m_total, f_x_ctotal, g_earth) instead [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  141 |     return [01;35m[Kmodel_->coriolis(q, dq, I_total, m_total, F_x_Ctotal)[m[K;
+      |            [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware/include/franka_hardware/model.hpp:19[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components/include/franka_semantic_components/franka_robot_model.hpp:23[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/model_example_controller.hpp:22[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/model_example_controller.cpp:15[m[K:
+[01m[K/usr/include/franka/model.h:251:3:[m[K [01;36m[Knote: [m[Kdeclared here
+  251 |   [01;36m[Kcoriolis[m[K(const std::array<double, 7>& q,
+      |   [01;36m[K^~~~~~~~[m[K
+In file included from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components/include/franka_semantic_components/franka_robot_model.hpp:23[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/joint_impedance_with_ik_example_controller.hpp:25[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/joint_impedance_with_ik_example_controller.cpp:16[m[K:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware/include/franka_hardware/model.hpp:[m[K In member function ‘[01m[Kstd::array<double, 7> franka_hardware::Model::coriolis(const std::array<double, 7>&, const std::array<double, 7>&, const std::array<double, 9>&, double, const std::array<double, 3>&) const[m[K’:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware/include/franka_hardware/model.hpp:141:28:[m[K [01;35m[Kwarning: [m[K‘[01m[Kstd::array<double, 7> franka::Model::coriolis(const std::array<double, 7>&, const std::array<double, 7>&, const std::array<double, 9>&, double, const std::array<double, 3>&) const[m[K’ is deprecated: Use coriolis(q, dq, i_total, m_total, f_x_ctotal, g_earth) instead [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  141 |     return [01;35m[Kmodel_->coriolis(q, dq, I_total, m_total, F_x_Ctotal)[m[K;
+      |            [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_hardware/include/franka_hardware/model.hpp:19[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/install/franka_semantic_components/include/franka_semantic_components/franka_robot_model.hpp:23[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/joint_impedance_with_ik_example_controller.hpp:25[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/joint_impedance_with_ik_example_controller.cpp:16[m[K:
+[01m[K/usr/include/franka/model.h:251:3:[m[K [01;36m[Knote: [m[Kdeclared here
+  251 |   [01;36m[Kcoriolis[m[K(const std::array<double, 7>& q,
+      |   [01;36m[K^~~~~~~~[m[K
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:[m[K In member function ‘[01m[Kbool CartesianImpedanceOscRT::configureFromYamlOrDefault(const string&)[m[K’:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:112:77:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kyaml_path[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  112 | bool CartesianImpedanceOscRT::configureFromYamlOrDefault([01;35m[Kconst std::string& yaml_path[m[K)
+      |                                                          [01;35m[K~~~~~~~~~~~~~~~~~~~^~~~~~~~~[m[K
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:[m[K In member function ‘[01m[Kvoid CartesianImpedanceOscRT::computeTorque(const Eigen::Matrix<double, 7, 1>&, const Eigen::Matrix<double, 7, 1>&, const SE3&, Eigen::Matrix<double, 7, 1>&, double, Eigen::Matrix<double, 6, 1, 0, 6, 1>*)[m[K’:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:186:12:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kelapse_time[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  186 |     [01;35m[Kdouble elapse_time[m[K,
+      |     [01;35m[K~~~~~~~^~~~~~~~~~~[m[K
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:[m[K In lambda function:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:716:31:[m[K [01;35m[Kwarning: [m[Kvariable ‘[01m[Kdp[m[K’ set but not used [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-but-set-variable-Wunused-but-set-variable]8;;[m[K]
+  716 |         const Eigen::Vector3d [01;35m[Kdp[m[K = ee_position_dbg_ - ee_position_msg_dbg_;
+      |                               [01;35m[K^~[m[K
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:717:22:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kqdot[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+  717 |         const double [01;35m[Kqdot[m[K = std::abs(
+      |                      [01;35m[K^~~~[m[K
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:[m[K In member function ‘[01m[Kvoid franka_example_controllers::MoveCatersianImpWithGripper::save_log_autosave_nonrt(const string&)[m[K’:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:3796:78:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kreason[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+ 3796 | void MoveCatersianImpWithGripper::save_log_autosave_nonrt([01;35m[Kconst std::string& reason[m[K)
+      |                                                           [01;35m[K~~~~~~~~~~~~~~~~~~~^~~~~~[m[K
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:[m[K In member function ‘[01m[Kvoid franka_example_controllers::MoveCatersianImpWithGripper::initProbeFrameIds()[m[K’:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:3948:31:[m[K [01;35m[Kwarning: [m[Klogical not is only applied to the left hand side of comparison [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wlogical-not-parentheses-Wlogical-not-parentheses]8;;[m[K]
+ 3948 |   if (!gripper_body_frame_id_ [01;35m[K==[m[K pinocchio::FrameIndex(-1)){
+      |                               [01;35m[K^~[m[K
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:3948:7:[m[K [01;36m[Knote: [m[Kadd parentheses around left hand side expression to silence this warning
+ 3948 |   if ([01;36m[K!gripper_body_frame_id_[m[K == pinocchio::FrameIndex(-1)){
+      |       [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~[m[K
+      |       [32m[K([m[K                      [32m[K)[m[K
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:3948:31:[m[K [01;35m[Kwarning: [m[Kcomparison of constant ‘[01m[K18446744073709551615[m[K’ with boolean expression is always false [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wbool-compare-Wbool-compare]8;;[m[K]
+ 3948 |   if ([01;35m[K!gripper_body_frame_id_ == pinocchio::FrameIndex(-1)[m[K){
+      |       [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:[m[K In member function ‘[01m[Kvoid franka_example_controllers::MoveCatersianImpWithGripper::updateClearObsFromPinocchio()[m[K’:
+[01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/move_catersian_impedance_with_gripper.cpp:4029:33:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass franka_example_controllers::PinocchioKinematics[m[K’ has no member named ‘[01m[KFramePosesRt[m[K’; did you mean ‘[01m[KFramePoseRt[m[K’?
+ 4029 |   const bool ok_gripper = pino_.[01;31m[KFramePosesRt[m[K(
+      |                                 [01;31m[K^~~~~~~~~~~~[m[K
+      |                                 [32m[KFramePoseRt[m[K
+gmake[2]: *** [CMakeFiles/franka_example_controllers.dir/build.make:286: CMakeFiles/franka_example_controllers.dir/src/move_catersian_impedance_with_gripper.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+In file included from [01m[K/opt/openrobots/include/pinocchio/algorithm/crba.hpp:58[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:6[m[K:
+[01m[K/opt/openrobots/include/pinocchio/algorithm/crba.hxx:[m[K In function ‘[01m[Kconst typename pinocchio::DataTpl<_Scalar, _Options, JointCollectionTpl>::MatrixXs& pinocchio::crba(const pinocchio::ModelTpl<_Scalar, _Options, JointCollectionTpl>&, pinocchio::DataTpl<Scalar, Options, JointCollectionTpl>&, const Eigen::MatrixBase<Matrix3Like>&, pinocchio::Convention) [with Scalar = double; int Options = 0; JointCollectionTpl = pinocchio::JointCollectionDefaultTpl; ConfigVectorType = Eigen::Matrix<double, -1, 1>][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/algorithm/crba.hxx:327:3:[m[K [01;35m[Kwarning: [m[Kcontrol reaches end of non-void function [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreturn-type-Wreturn-type]8;;[m[K]
+  327 |   [01;35m[K}[m[K
+      |   [01;35m[K^[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+In member function ‘[01m[Kvoid pinocchio::JointModelUniversalTpl<Scalar, Options>::calc(pinocchio::JointModelUniversalTpl<Scalar, Options>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVector = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; _Scalar = double; int _Options = 0][m[K’,
+    inlined from ‘[01m[Kvoid pinocchio::JointModelBase<Derived>::calc(pinocchio::JointModelBase<Derived>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; Derived = pinocchio::JointModelUniversalTpl<double>][m[K’ at [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-model-base.hpp:109:21[m[K,
+    inlined from ‘[01m[Kstatic void pinocchio::impl::ForwardKinematicZeroStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::algo(const pinocchio::JointModelBase<OtherDerived>&, pinocchio::JointDataBase<typename JointModel::JointDataDerived>&, const Model&, pinocchio::impl::ForwardKinematicZeroStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::Data&, const Eigen::MatrixBase<Matrix3Like>&) [with JointModel = pinocchio::JointModelUniversalTpl<double>; Scalar = double; int Options = 0; JointCollectionTpl = pinocchio::JointCollectionDefaultTpl; ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >][m[K’ at [01m[K/opt/openrobots/include/pinocchio/algorithm/kinematics.hxx:63:20[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:483:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot1[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  483 |       [01;35m[KtoRotationMatrix(axis1, c0, s0, rot1)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:12[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:[m[K In static member function ‘[01m[Kstatic void pinocchio::impl::ForwardKinematicZeroStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::algo(const pinocchio::JointModelBase<OtherDerived>&, pinocchio::JointDataBase<typename JointModel::JointDataDerived>&, const Model&, pinocchio::impl::ForwardKinematicZeroStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::Data&, const Eigen::MatrixBase<Matrix3Like>&) [with JointModel = pinocchio::JointModelUniversalTpl<double>; Scalar = double; int Options = 0; JointCollectionTpl = pinocchio::JointCollectionDefaultTpl; ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:15:[m[K [01;36m[Knote: [m[K‘[01m[Krot1[m[K’ declared here
+  482 |       Matrix3 [01;36m[Krot1[m[K, rot2;
+      |               [01;36m[K^~~~[m[K
+In member function ‘[01m[Kvoid pinocchio::JointModelUniversalTpl<Scalar, Options>::calc(pinocchio::JointModelUniversalTpl<Scalar, Options>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVector = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; _Scalar = double; int _Options = 0][m[K’,
+    inlined from ‘[01m[Kvoid pinocchio::JointModelBase<Derived>::calc(pinocchio::JointModelBase<Derived>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; Derived = pinocchio::JointModelUniversalTpl<double>][m[K’ at [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-model-base.hpp:109:21[m[K,
+    inlined from ‘[01m[Kstatic void pinocchio::impl::ForwardKinematicZeroStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::algo(const pinocchio::JointModelBase<OtherDerived>&, pinocchio::JointDataBase<typename JointModel::JointDataDerived>&, const Model&, pinocchio::impl::ForwardKinematicZeroStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::Data&, const Eigen::MatrixBase<Matrix3Like>&) [with JointModel = pinocchio::JointModelUniversalTpl<double>; Scalar = double; int Options = 0; JointCollectionTpl = pinocchio::JointCollectionDefaultTpl; ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >][m[K’ at [01m[K/opt/openrobots/include/pinocchio/algorithm/kinematics.hxx:63:20[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:484:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot2[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  484 |       [01;35m[KtoRotationMatrix(axis2, c1, s1, rot2)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:12[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:[m[K In static member function ‘[01m[Kstatic void pinocchio::impl::ForwardKinematicZeroStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::algo(const pinocchio::JointModelBase<OtherDerived>&, pinocchio::JointDataBase<typename JointModel::JointDataDerived>&, const Model&, pinocchio::impl::ForwardKinematicZeroStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::Data&, const Eigen::MatrixBase<Matrix3Like>&) [with JointModel = pinocchio::JointModelUniversalTpl<double>; Scalar = double; int Options = 0; JointCollectionTpl = pinocchio::JointCollectionDefaultTpl; ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:21:[m[K [01;36m[Knote: [m[K‘[01m[Krot2[m[K’ declared here
+  482 |       Matrix3 rot1, [01;36m[Krot2[m[K;
+      |                     [01;36m[K^~~~[m[K
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:[m[K In member function ‘[01m[Kvoid pinocchio::JointModelUniversalTpl<Scalar, Options>::calc(pinocchio::JointModelUniversalTpl<Scalar, Options>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVector = Eigen::Matrix<double, -1, 1>; _Scalar = double; int _Options = 0][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:483:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot1[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  483 |       [01;35m[KtoRotationMatrix(axis1, c0, s0, rot1)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:12[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:15:[m[K [01;36m[Knote: [m[K‘[01m[Krot1[m[K’ declared here
+  482 |       Matrix3 [01;36m[Krot1[m[K, rot2;
+      |               [01;36m[K^~~~[m[K
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:484:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot2[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  484 |       [01;35m[KtoRotationMatrix(axis2, c1, s1, rot2)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:12[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:21:[m[K [01;36m[Knote: [m[K‘[01m[Krot2[m[K’ declared here
+  482 |       Matrix3 rot1, [01;36m[Krot2[m[K;
+      |                     [01;36m[K^~~~[m[K
+In member function ‘[01m[Kvoid pinocchio::JointModelUniversalTpl<Scalar, Options>::calc(pinocchio::JointModelUniversalTpl<Scalar, Options>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVector = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; _Scalar = double; int _Options = 0][m[K’,
+    inlined from ‘[01m[Kvoid pinocchio::JointModelBase<Derived>::calc(pinocchio::JointModelBase<Derived>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; Derived = pinocchio::JointModelUniversalTpl<double>][m[K’ at [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-model-base.hpp:109:21[m[K,
+    inlined from ‘[01m[Kstatic void pinocchio::JointCompositeCalcZeroOrderStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::algo(const pinocchio::JointModelBase<OtherDerived>&, pinocchio::JointDataBase<typename JointModel::JointDataDerived>&, const JointModelComposite&, pinocchio::JointCompositeCalcZeroOrderStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::JointDataComposite&, const Eigen::MatrixBase<Matrix3Like>&) [with JointModel = pinocchio::JointModelUniversalTpl<double>; Scalar = double; int Options = 0; JointCollectionTpl = pinocchio::JointCollectionDefaultTpl; ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >][m[K’ at [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-composite.hxx:40:18[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:483:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot1[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  483 |       [01;35m[KtoRotationMatrix(axis1, c0, s0, rot1)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:12[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:[m[K In static member function ‘[01m[Kstatic void pinocchio::JointCompositeCalcZeroOrderStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::algo(const pinocchio::JointModelBase<OtherDerived>&, pinocchio::JointDataBase<typename JointModel::JointDataDerived>&, const JointModelComposite&, pinocchio::JointCompositeCalcZeroOrderStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::JointDataComposite&, const Eigen::MatrixBase<Matrix3Like>&) [with JointModel = pinocchio::JointModelUniversalTpl<double>; Scalar = double; int Options = 0; JointCollectionTpl = pinocchio::JointCollectionDefaultTpl; ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:15:[m[K [01;36m[Knote: [m[K‘[01m[Krot1[m[K’ declared here
+  482 |       Matrix3 [01;36m[Krot1[m[K, rot2;
+      |               [01;36m[K^~~~[m[K
+In member function ‘[01m[Kvoid pinocchio::JointModelUniversalTpl<Scalar, Options>::calc(pinocchio::JointModelUniversalTpl<Scalar, Options>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVector = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; _Scalar = double; int _Options = 0][m[K’,
+    inlined from ‘[01m[Kvoid pinocchio::JointModelBase<Derived>::calc(pinocchio::JointModelBase<Derived>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; Derived = pinocchio::JointModelUniversalTpl<double>][m[K’ at [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-model-base.hpp:109:21[m[K,
+    inlined from ‘[01m[Kstatic void pinocchio::JointCompositeCalcZeroOrderStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::algo(const pinocchio::JointModelBase<OtherDerived>&, pinocchio::JointDataBase<typename JointModel::JointDataDerived>&, const JointModelComposite&, pinocchio::JointCompositeCalcZeroOrderStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::JointDataComposite&, const Eigen::MatrixBase<Matrix3Like>&) [with JointModel = pinocchio::JointModelUniversalTpl<double>; Scalar = double; int Options = 0; JointCollectionTpl = pinocchio::JointCollectionDefaultTpl; ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >][m[K’ at [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-composite.hxx:40:18[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:484:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot2[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  484 |       [01;35m[KtoRotationMatrix(axis2, c1, s1, rot2)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:12[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:[m[K In static member function ‘[01m[Kstatic void pinocchio::JointCompositeCalcZeroOrderStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::algo(const pinocchio::JointModelBase<OtherDerived>&, pinocchio::JointDataBase<typename JointModel::JointDataDerived>&, const JointModelComposite&, pinocchio::JointCompositeCalcZeroOrderStep<Scalar, Options, JointCollectionTpl, ConfigVectorType>::JointDataComposite&, const Eigen::MatrixBase<Matrix3Like>&) [with JointModel = pinocchio::JointModelUniversalTpl<double>; Scalar = double; int Options = 0; JointCollectionTpl = pinocchio::JointCollectionDefaultTpl; ConfigVectorType = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/data.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/pinocchio_kinematics.hpp:13[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/pinocchio_kinematics.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:21:[m[K [01;36m[Knote: [m[K‘[01m[Krot2[m[K’ declared here
+  482 |       Matrix3 rot1, [01;36m[Krot2[m[K;
+      |                     [01;36m[K^~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:[m[K In member function ‘[01m[Kvoid pinocchio::JointModelUniversalTpl<Scalar, Options>::calc(pinocchio::JointModelUniversalTpl<Scalar, Options>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVector = Eigen::Matrix<double, -1, 1>; _Scalar = double; int _Options = 0][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:483:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot1[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  483 |       [01;35m[KtoRotationMatrix(axis1, c0, s0, rot1)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:10[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:15:[m[K [01;36m[Knote: [m[K‘[01m[Krot1[m[K’ declared here
+  482 |       Matrix3 [01;36m[Krot1[m[K, rot2;
+      |               [01;36m[K^~~~[m[K
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:484:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot2[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  484 |       [01;35m[KtoRotationMatrix(axis2, c1, s1, rot2)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:10[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:21:[m[K [01;36m[Knote: [m[K‘[01m[Krot2[m[K’ declared here
+  482 |       Matrix3 rot1, [01;36m[Krot2[m[K;
+      |                     [01;36m[K^~~~[m[K
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:[m[K In member function ‘[01m[Kvoid pinocchio::JointModelUniversalTpl<Scalar, Options>::calc(pinocchio::JointModelUniversalTpl<Scalar, Options>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVector = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; TangentVector = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; _Scalar = double; int _Options = 0][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:535:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot1[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  535 |       [01;35m[KtoRotationMatrix(axis1, c0, s0, rot1)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:10[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:534:15:[m[K [01;36m[Knote: [m[K‘[01m[Krot1[m[K’ declared here
+  534 |       Matrix3 [01;36m[Krot1[m[K, rot2;
+      |               [01;36m[K^~~~[m[K
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:536:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot2[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  536 |       [01;35m[KtoRotationMatrix(axis2, c1, s1, rot2)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:10[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:534:21:[m[K [01;36m[Knote: [m[K‘[01m[Krot2[m[K’ declared here
+  534 |       Matrix3 rot1, [01;36m[Krot2[m[K;
+      |                     [01;36m[K^~~~[m[K
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:[m[K In member function ‘[01m[Kvoid pinocchio::JointModelUniversalTpl<Scalar, Options>::calc(pinocchio::JointModelUniversalTpl<Scalar, Options>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVector = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; _Scalar = double; int _Options = 0][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:483:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot1[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  483 |       [01;35m[KtoRotationMatrix(axis1, c0, s0, rot1)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:10[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:15:[m[K [01;36m[Knote: [m[K‘[01m[Krot1[m[K’ declared here
+  482 |       Matrix3 [01;36m[Krot1[m[K, rot2;
+      |               [01;36m[K^~~~[m[K
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:484:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot2[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  484 |       [01;35m[KtoRotationMatrix(axis2, c1, s1, rot2)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:10[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:482:21:[m[K [01;36m[Knote: [m[K‘[01m[Krot2[m[K’ declared here
+  482 |       Matrix3 rot1, [01;36m[Krot2[m[K;
+      |                     [01;36m[K^~~~[m[K
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:[m[K In member function ‘[01m[Kvoid pinocchio::JointModelUniversalTpl<Scalar, Options>::calc(pinocchio::JointModelUniversalTpl<Scalar, Options>::JointDataDerived&, const Eigen::MatrixBase<OtherDerived>&, const Eigen::MatrixBase<OtherDerived>&) const [with ConfigVector = Eigen::Ref<const Eigen::Matrix<double, -1, 1>, 0, Eigen::InnerStride<1> >; TangentVector = Eigen::Ref<const Eigen::Matrix<double, 9, 1>, 0, Eigen::InnerStride<1> >; _Scalar = double; int _Options = 0][m[K’:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:535:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot1[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  535 |       [01;35m[KtoRotationMatrix(axis1, c0, s0, rot1)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:10[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:534:15:[m[K [01;36m[Knote: [m[K‘[01m[Krot1[m[K’ declared here
+  534 |       Matrix3 [01;36m[Krot1[m[K, rot2;
+      |               [01;36m[K^~~~[m[K
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:536:23:[m[K [01;35m[Kwarning: [m[K‘[01m[Krot2[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  536 |       [01;35m[KtoRotationMatrix(axis2, c1, s1, rot2)[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/spatial/se3-tpl.hpp:13[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/spatial/se3.hpp:47[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:10[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/math/rotation.hpp:26:8:[m[K [01;36m[Knote: [m[Kby argument 4 of type ‘[01m[Kconst Eigen::MatrixBase<Eigen::Matrix<double, 3, 3> >&[m[K’ to ‘[01m[Kvoid pinocchio::toRotationMatrix(const Eigen::MatrixBase<Derived>&, const Scalar&, const Scalar&, const Eigen::MatrixBase<OtherDerived>&) [with Vector3 = Eigen::Matrix<double, 3, 1>; Scalar = double; Matrix3 = Eigen::Matrix<double, 3, 3>][m[K’ declared here
+   26 |   void [01;36m[KtoRotationMatrix[m[K(
+      |        [01;36m[K^~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joints.hpp:22[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-collection.hpp:9[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-generic.hpp:8[m[K,
+                 from [01m[K/opt/openrobots/include/pinocchio/multibody/model.hpp:17[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/include/franka_example_controllers/cartesian_impedance_osc_rt.hpp:4[m[K,
+                 from [01m[K/home/jiataoding/franco_ros2_franka_ws/src/franka_ros2/franka_example_controllers/src/cartesian_impedance_osc_rt.cpp:1[m[K:
+[01m[K/opt/openrobots/include/pinocchio/multibody/joint/joint-universal.hpp:534:21:[m[K [01;36m[Knote: [m[K‘[01m[Krot2[m[K’ declared here
+  534 |       Matrix3 rot1, [01;36m[Krot2[m[K;
+      |                     [01;36m[K^~~~[m[K
+gmake[1]: *** [CMakeFiles/Makefile2:182: CMakeFiles/franka_example_controllers.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

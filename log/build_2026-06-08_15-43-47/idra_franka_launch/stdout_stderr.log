@@ -1,0 +1,49 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/jiataoding/franco_ros2_franka_ws/src/build/idra_franka_launch
+-- Install configuration: "Release"
+-- Execute custom install script
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/lib/idra_franka_launch/gear_pick.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/lib/idra_franka_launch/coffee_tray.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/lib/idra_franka_launch/gripper_grasp_test.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/lib/idra_franka_launch/gripper_homing_test.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/lib/idra_franka_launch/stiffness_test.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/launch/bimanual.launch.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/launch/franka1.launch.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/launch/franka2.launch.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/urdf/bimanual.urdf.xacro
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/rviz/bimanual.rviz
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/config/basic_controllers.yaml
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/config/controllers.yaml
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/config/controllers_gazebo.yaml
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/config/controllers_ros.yaml
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/ament_index/resource_index/package_run_dependencies/idra_franka_launch
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/ament_index/resource_index/parent_prefix_path/idra_franka_launch
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/environment/ament_prefix_path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/environment/ament_prefix_path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/environment/path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/environment/path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/local_setup.bash
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/local_setup.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/local_setup.zsh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/local_setup.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/package.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/ament_index/resource_index/packages/idra_franka_launch
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/cmake/idra_franka_launchConfig.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/cmake/idra_franka_launchConfig-version.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/idra_franka_launch/share/idra_franka_launch/package.xml

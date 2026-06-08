@@ -1,0 +1,5 @@
+[ 15%] Built target gmock_main
+[ 15%] Built target gmock
+[ 24%] [32mBuilding CXX object CMakeFiles/franka_example_controllers.dir/src/move_catersian_impedance_with_gripper.cpp.o[0m
+[ 24%] Built target franka_example_controllers_test_load_move_to_start
+[ 30%] Built target franka_example_controllers_test

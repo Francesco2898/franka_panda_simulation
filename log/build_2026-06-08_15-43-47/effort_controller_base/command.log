@@ -1,0 +1,4 @@
+Invoking command in '/home/jiataoding/franco_ros2_franka_ws/src/build/effort_controller_base': /usr/bin/cmake --build /home/jiataoding/franco_ros2_franka_ws/src/build/effort_controller_base -- -j24 -l24
+Invoked command in '/home/jiataoding/franco_ros2_franka_ws/src/build/effort_controller_base' returned '0': /usr/bin/cmake --build /home/jiataoding/franco_ros2_franka_ws/src/build/effort_controller_base -- -j24 -l24
+Invoking command in '/home/jiataoding/franco_ros2_franka_ws/src/build/effort_controller_base': /usr/bin/cmake --install /home/jiataoding/franco_ros2_franka_ws/src/build/effort_controller_base
+Invoked command in '/home/jiataoding/franco_ros2_franka_ws/src/build/effort_controller_base' returned '0': /usr/bin/cmake --install /home/jiataoding/franco_ros2_franka_ws/src/build/effort_controller_base

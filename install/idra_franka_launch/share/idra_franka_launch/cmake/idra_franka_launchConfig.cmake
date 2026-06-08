@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/build/idra_franka_launch/ament_cmake_core/idra_franka_launchConfig.cmake

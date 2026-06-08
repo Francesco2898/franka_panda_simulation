@@ -1,0 +1,25 @@
+-- Install configuration: "Release"
+-- Execute custom install script
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/config/controllers.yaml
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/config/franka.config.yaml
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/launch/example.launch.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/launch/franka.launch.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/launch/joint_impedance_with_ik_example_controller.launch.py
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/ament_index/resource_index/package_run_dependencies/franka_bringup
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/ament_index/resource_index/parent_prefix_path/franka_bringup
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/environment/ament_prefix_path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/environment/ament_prefix_path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/environment/path.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/environment/path.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/local_setup.bash
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/local_setup.sh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/local_setup.zsh
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/local_setup.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/package.dsv
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/ament_index/resource_index/packages/franka_bringup
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/cmake/franka_bringupConfig.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/cmake/franka_bringupConfig-version.cmake
+-- Symlinking: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/share/franka_bringup/package.xml
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/lib/franka_bringup/utils
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/lib/franka_bringup/utils/launch_utils.py
+-- Installing: /home/jiataoding/franco_ros2_franka_ws/src/install/franka_bringup/lib/franka_bringup/utils/__init__.py

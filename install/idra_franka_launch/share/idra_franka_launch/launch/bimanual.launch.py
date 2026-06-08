@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/idra_franka_launch/launch/bimanual.launch.py

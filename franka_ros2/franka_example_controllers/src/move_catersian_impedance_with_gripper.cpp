@@ -1892,7 +1892,7 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
           rl_obs_[18] = phase_mask;
 
           // 3D error vector to the target
-          const Eigen::Vector3d to_target = target_p_ - fingertip_pos;
+          const Eigen::Vector3d to_target = target_p_gear_fixed_ - fingertip_pos;
           rl_obs_[19] = static_cast<float>(to_target.x());
           rl_obs_[20] = static_cast<float>(to_target.y());
           rl_obs_[21] = static_cast<float>(to_target.z());
@@ -2009,14 +2009,14 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
             ee6_ref_.setZero();
           }
 
-          const double dist_pick = (target_p_ - fingertip_pos).norm();
+          const double dist_pick = (target_p_gear_fixed_ - fingertip_pos).norm();
 
           if (N_torque_ % 1000 == 0)
           {
             std::cout << "[MOVE_POSE_1 PICK POLICY]" << std::endl;
             std::cout << "q: " << q_.transpose() << std::endl;
             std::cout << "q_des: " << q_des_.transpose() << std::endl;
-            std::cout << "target_p_: " << target_p_.transpose() << std::endl;
+            std::cout << "target_p_: " << target_p_gear_fixed_.transpose() << std::endl;
             std::cout << "fingertip_pos: " << fingertip_pos.transpose() << std::endl;
             std::cout << "to_target: " << to_target.transpose() << std::endl;
             std::cout << "dist_pick: " << dist_pick << std::endl;
@@ -2272,7 +2272,7 @@ MoveCatersianImpWithGripper::update(const rclcpp::Time& /*time*/, const rclcpp::
           rl_obs_[18] = phase_mask;
 
           // 3D error vector to the target
-          const Eigen::Vector3d to_target = target_p_2_ - fingertip_pos;
+          const Eigen::Vector3d to_target = target_p_gear_fixed_ - fingertip_pos;
           rl_obs_[19] = static_cast<float>(to_target.x());
           rl_obs_[20] = static_cast<float>(to_target.y());
           rl_obs_[21] = static_cast<float>(to_target.z());
@@ -3944,7 +3944,24 @@ void MoveCatersianImpWithGripper::initProbeFrameIds()
       probe_frame_names_[i].c_str(),
       static_cast<unsigned long>(probe_frame_ids_[i]));
   }
+  gripper_body_frame_id_ = pino_.frameIdByName(gripper_body_frame_name_);
+  if (!gripper_body_frame_id_ == pinocchio::FrameIndex(-1)){
+    RCLCPP_ERROR(
+      get_node()->get_logger(),
+      "Gripper body frame '%s' not found in Pinocchio model.",
+      gripper_body_frame_name_.c_str());
 
+    probe_frame_ids_ready_ = false;
+    gripper_body_frame_id_ready_ = false;
+    return;
+  }
+  RCLCPP_INFO(
+    get_node()->get_logger(),
+    "Gripper body frame '%s' id=%lu",
+    gripper_body_frame_name_.c_str(),
+    static_cast<unsigned long>(gripper_body_frame_id_));
+
+  gripper_body_frame_id_ready_ = true;
   probe_frame_ids_ready_ = true;
 }
 
@@ -3997,6 +4014,7 @@ void MoveCatersianImpWithGripper::updateClearObsFromPinocchio()
   }
 
   std::array<pinocchio::SE3, 4> T;
+  pinocchio::SE3 T_gripper;
 
   const bool ok = pino_.FramePoses4Rt(
       q_.head<7>(),
@@ -4005,6 +4023,15 @@ void MoveCatersianImpWithGripper::updateClearObsFromPinocchio()
 
   if (!ok)
   {
+    clear_obs_.fill(0.0f);
+    return;
+  }
+  const bool ok_gripper = pino_.FramePoseRt(
+    q_.head<7>(),
+    gripper_body_frame_id_,
+    T_gripper
+  );
+  if (!ok_gripper){
     clear_obs_.fill(0.0f);
     return;
   }
@@ -4037,12 +4064,10 @@ void MoveCatersianImpWithGripper::updateClearObsFromPinocchio()
 
   // seg_24 = lerp(p2, p4, [0.25, 0.5, 0.75])
   probe_points_w_[k++] = lerp(p2, p4, 0.25);
-  probe_points_w_[k++] = lerp(p2, p4, 0.50);
   probe_points_w_[k++] = lerp(p2, p4, 0.75);
 
   // seg_46 = lerp(p4, p6, [0.25, 0.5, 0.75])
   probe_points_w_[k++] = lerp(p4, p6, 0.25);
-  probe_points_w_[k++] = lerp(p4, p6, 0.50);
   probe_points_w_[k++] = lerp(p4, p6, 0.75);
 
   // seg_67 = lerp(p6, p7, [0.33, 0.66])
@@ -4071,6 +4096,17 @@ void MoveCatersianImpWithGripper::updateClearObsFromPinocchio()
   {
     probe_points_w_[k++] = p7 + R_hand * off_local;
   }
+  //Two fixed side point probes on the gripper body
+  //equivalent to isaaclab
+  const Eigen::Vector3d pg_body = T_gripper.translation();
+  const Eigen::Matrix3d R_gripper = T_gripper.rotation();
+  const double side_x = 0.000;
+  const double side_y = 0.050;
+  const double side_z = 0.085;
+  const Eigen::Vector3d side_offset_1_local(side_x, side_y, side_z);
+  const Eigen::Vector3d side_offset_2_local(side_x, -side_y, side_z); 
+  probe_points_w_[k++] = pg_body + R_gripper * side_offset_1_local;
+  probe_points_w_[k++] = pg_body + R_gripper * side_offset_2_local;
 
   // Safety check: should be exactly 20
   if (k != 20)

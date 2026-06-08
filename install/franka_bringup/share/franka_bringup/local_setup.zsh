@@ -1,0 +1,1 @@
+/home/jiataoding/franco_ros2_franka_ws/src/build/franka_bringup/ament_cmake_environment_hooks/local_setup.zsh

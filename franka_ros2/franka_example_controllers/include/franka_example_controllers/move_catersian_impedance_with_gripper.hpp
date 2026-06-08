@@ -239,7 +239,7 @@ private:
   std::string policy_name_;
 
   std::array<float, 46> rl_obs_{};
-  std::array<float, 9>  rl_prev_action_{};
+  std::array<float, 7>  rl_prev_action_{};
   bool rl_test_{true};  
 
   Eigen::Vector3d target_p_gear_fixed_{0.5, 0.0, 0.0};  
@@ -360,7 +360,7 @@ private:
   Vector7d q_interp_start_{Vector7d::Zero()};
 
   /// rt print
-  std::array<float, 9> action_rl_bg_{}; // equal to 6 previously
+  std::array<float, 7> action_rl_bg_{}; // equal to 6 previously
   bool action_rl_bg_valid_{false};
 
   Eigen::Vector3d rl_ctrl_target_fingertip_midpoint_pos_bg_ = Eigen::Vector3d::Zero();
@@ -478,6 +478,11 @@ private:
     // std::array<float, 46> rl_obs_pp_{};
     // std::array<float, 9>  rl_prev_action_pp_{};
     // std::array<float, 9> action_rl_bg_pp_{};
+    std::string gripper_body_frame_name_ = "fr3_hand";
+    pinocchio::FrameIndex gripper_body_frame_id_{pinocchio::FrameIndex(-1)};
+    bool gripper_body_frame_id_ready_{false};
+
+    Eigen::Vector3d target_pos_franko{0.45, 0.0, 0.0};
 
     void applyPickPlacePolicyAction(
       const std::array<float, 9>& action,

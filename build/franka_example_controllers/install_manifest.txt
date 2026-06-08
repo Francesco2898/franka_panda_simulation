@@ -1,0 +1,3 @@
+/home/jiataoding/franco_ros2_franka_ws/src/install/franka_example_controllers/lib/libonnxruntime.so.1.21.0
+/home/jiataoding/franco_ros2_franka_ws/src/install/franka_example_controllers/lib/libonnxruntime.so
+/home/jiataoding/franco_ros2_franka_ws/src/install/franka_example_controllers/lib/libonnxruntime.so.1
